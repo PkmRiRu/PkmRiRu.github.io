@@ -38,8 +38,6 @@ var Pokemon = /** @class */ (function () {
         this.types = this.species.types;
         this.isDynamaxed = !!options.isDynamaxed;
         this.weightkg = this.species.weightkg;
-        // Gigantamax 'forms' inherit weight from their base species when not dynamaxed
-        // TODO: clean this up with proper Gigantamax support
         if (this.weightkg === 0 && !this.isDynamaxed && this.species.baseSpecies) {
             this.weightkg = gen.species.get((0, util_1.toID)(this.species.baseSpecies)).weightkg;
         }
@@ -85,14 +83,12 @@ var Pokemon = /** @class */ (function () {
     }
     Pokemon.prototype.maxHP = function (original) {
         if (original === void 0) { original = false; }
-        // Shedinja still has 1 max HP during the effect even if its Dynamax Level is maxed (DaWoblefet)
         return !original && this.isDynamaxed && this.species.baseStats.hp !== 1
             ? this.rawStats.hp * 2
             : this.rawStats.hp;
     };
     Pokemon.prototype.curHP = function (original) {
         if (original === void 0) { original = false; }
-        // Shedinja still has 1 max HP during the effect even if its Dynamax Level is maxed (DaWoblefet)
         return !original && this.isDynamaxed && this.species.baseStats.hp !== 1
             ? this.originalCurHP * 2
             : this.originalCurHP;

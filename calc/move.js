@@ -78,19 +78,15 @@ var Move = /** @class */ (function () {
         }
         this.timesUsed = (this.dropsStats && options.timesUsed) || 1;
         this.secondaries = data.secondaries;
-        // For the purposes of the damage formula only 'allAdjacent' and 'allAdjacentFoes' matter, so we
-        // simply default to 'any' for the others even though they may not actually be 'any'-target
-        this.target = data.target || 'any';
+         this.target = data.target || 'any';
         this.recoil = data.recoil;
         this.hasCrashDamage = !!data.hasCrashDamage;
         this.mindBlownRecoil = !!data.mindBlownRecoil;
         this.struggleRecoil = !!data.struggleRecoil;
         this.isCrit = !!options.isCrit || !!data.willCrit ||
-            // These don't *always* crit (255/256 chance), but for the purposes of the calc they do
             gen.num === 1 && ['crabhammer', 'razorleaf', 'slash', 'karate chop'].includes(data.id);
         this.drain = data.drain;
         this.flags = data.flags;
-        // The calc doesn't currently care about negative priority moves so we simply default to 0
         this.priority = data.priority || 0;
         this.ignoreDefensive = !!data.ignoreDefensive;
         this.overrideOffensiveStat = data.overrideOffensiveStat;

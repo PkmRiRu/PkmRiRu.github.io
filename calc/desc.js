@@ -19,7 +19,6 @@ exports.__esModule = true;
 exports.getKOChance = exports.getRecoil = exports.getRecovery = exports.displayMove = exports.display = void 0;
 var result_1 = require("./result");
 var util_1 = require("./util");
-// NOTE: This needs to come last to simplify bundling
 var util_2 = require("./mechanics/util");
 function display(gen, attacker, defender, move, field, damage, rawDesc, notation, err) {
     if (notation === void 0) { notation = '%'; }
@@ -84,7 +83,6 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
     return { recovery: recovery, text: text };
 }
 exports.getRecovery = getRecovery;
-// TODO: return recoil damage as exact HP
 function getRecoil(gen, attacker, defender, move, damage, notation) {
     if (notation === void 0) { notation = '%'; }
     var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
@@ -156,9 +154,7 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
     else if (move.struggleRecoil) {
         recoil = notation === '%' ? 12 : 25;
         text = '25% struggle damage';
-        // Struggle recoil is actually rounded down in Gen 4 per DaWoblefet's research, but until we
-        // return recoil damage as exact HP the best we can do is add some more text to this effect
-        if (gen.num === 4)
+         if (gen.num === 4)
             text += ' (rounded down)';
     }
     else if (move.mindBlownRecoil) {
@@ -179,7 +175,6 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
         (0, util_1.error)(err, 'damage[damage.length - 1] === 0.');
         return { chance: 0, n: 0, text: '' };
     }
-    // Code doesn't really work if these aren't set.
     if (move.timesUsed === undefined)
         move.timesUsed = 1;
     if (move.timesUsedWithMetronome === undefined)
@@ -190,8 +185,6 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
     var hazards = getHazards(gen, defender, field.defenderSide);
     var eot = getEndOfTurn(gen, attacker, defender, move, field);
     var toxicCounter = defender.hasStatus('tox') && !defender.hasAbility('Magic Guard') ? defender.toxicCounter : 0;
-    // multi-hit moves have too many possibilities for brute-forcing to work, so reduce it
-    // to an approximate distribution
     var qualifier = '';
     if (move.hits > 1) {
         qualifier = 'approx. ';
@@ -209,20 +202,14 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
             return { chance: chance, n: 1, text: "guaranteed OHKO".concat(hazardsText) }; // eot wasn't considered
         }
         else if (chance > 0) {
-            // note: still not accounting for EOT due to poor eot damage handling
             return {
                 chance: chance,
                 n: 1,
                 text: qualifier + Math.round(chance * 1000) / 10 + "% chance to OHKO".concat(hazardsText)
             };
         }
-        // Parental Bond's combined first + second hit only is accurate for chance to OHKO, for
-        // multihit KOs its only approximated. We should be doing squashMultihit here instead of
-        // pretending we ar emore accurate than we are, but just throwing on an qualifer should be
-        // sufficient.
         if (damage.length === 256) {
             qualifier = 'approx. ';
-            // damage = squashMultihit(gen, damage, move.hits, err);
         }
         for (var i = 2; i <= 4; i++) {
             var chance_1 = computeKOChance(damage, defender.curHP() - hazards.damage, eot.damage, i, 1, defender.maxHP(), toxicCounter);
@@ -287,20 +274,16 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
 }
 exports.getKOChance = getKOChance;
 function combine(damage) {
-    // Fixed Damage
     if (typeof damage === 'number')
         return [damage];
-    // Standard Damage
     if (damage.length > 2) {
         if (damage[0] > damage[damage.length - 1])
             damage = damage.slice().sort();
         return damage;
     }
-    // Fixed Parental Bond Damage
     if (typeof damage[0] === 'number' && typeof damage[1] === 'number') {
         return [damage[0] + damage[1]];
     }
-    // Parental Bond Damage
     var d = damage;
     var combined = [];
     for (var i = 0; i < d[0].length; i++) { // eslint-disable-line
@@ -420,7 +403,6 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     if (field.defenderSide.isSeeded) {
         if (!defender.hasAbility('Magic Guard')) {
-            // 1/16 in gen 1, 1/8 in gen 2 onwards
             damage -= Math.floor(defender.maxHP() / (gen.num >= 2 ? 8 : 16));
             texts.push('Leech Seed damage');
         }
@@ -650,7 +632,6 @@ function squashMultihit(gen, d, hits, err) {
         if (hits > 1) {
             (0, util_1.error)(err, "Unexpected # of hits for Parental Bond: ".concat(hits));
         }
-        // FIXME: Come up with a better Parental Bond approximation
         var r = [];
         for (var i = 0; i < 16; i++) {
             var val = 0;
@@ -735,7 +716,6 @@ function buildDescription(description, attacker, defender) {
     }
     output += description.defenderName;
     if (description.weather && description.terrain) {
-        // do nothing
     }
     else if (description.weather) {
         output += ' in ' + description.weather;
@@ -773,8 +753,6 @@ function getDescriptionLevels(attacker, defender) {
             defender.level === 100 ? '' : "Lvl ".concat(defender.level),
         ];
     }
-    // There's an argument for showing any level thats not 100, but VGC and LC players
-    // probably would rather not see level cruft in their calcs
     var elide = [100, 50, 5].includes(attacker.level);
     var level = elide ? '' : "Lvl ".concat(attacker.level);
     return [level, level];

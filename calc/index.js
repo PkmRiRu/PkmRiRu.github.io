@@ -1,45 +1,4 @@
 "use strict";
-// When using this library in the browser, a bundler like Webpack should be
-// used to encapsulate the various interdependencies between internal packages.
-// However, if you are requiring contents of this package in HTML <script>
-// tags, the following loading order is required:
-//
-//   - util.js
-//   - stats.js
-//
-//   - data/species.js
-//   - data/types.js
-//   - data/natures.js
-//   - data/abilities.js
-//   - data/moves.js
-//   - data/items.js
-//   - data/index.js
-//
-//   - pokemon.js
-//   - field.js
-//   - move.js
-//   - items.js
-//
-//   - mechanics/util.js
-//   - mechanics/gen78.js
-//   - mechanics/gen56.js
-//   - mechanics/gen4.js
-//   - mechanics/gen3.js
-//   - mechanics/gen12.js
-//
-//   - calc.js
-//   - desc.js
-//   - result.ts
-//
-//   - adaptable.js
-//   - index.js
-//
-// Furthermore, before anything is loaded, the following is required:
-//
-// <script type="text/javascript">
-//		var calc = exports = {};
-//		function require() { return exports; };
-//	</script>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -66,19 +25,22 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 exports.__esModule = true;
-exports.Stats = exports.STATS = exports.TYPE_CHART = exports.NATURES = exports.SPECIES = exports.MOVES = exports.MEGA_STONES = exports.ITEMS = exports.ABILITIES = exports.toID = exports.Generations = exports.Result = exports.Side = exports.Field = exports.calcStat = exports.Pokemon = exports.Move = exports.calculate = void 0;
-// If we're not being used as a module we're just going to rely on globals and
-// that the correct loading order being followed.
+
 var data_1 = require("./data");
 var A = require("./adaptable");
-// The loading strategy outlined in the comment above breaks in the browser when we start reusing
-// names as we're doing here with our shim overrides. Because exporting calculate below tramples
-// A.calculate, this ends up infinitely calling itself. As a workaround we save the original value
-// of A.calculate (which would be exports.calculate if files are loaded as outlined above) so that
-// we can call that instead.
-//
-// This is obviously kludge, use a bundler kids.
 var Acalculate = exports.calculate;
 function calculate(gen, attacker, defender, move, field) {
     return (Acalculate || A.calculate)(typeof gen === 'number' ? data_1.Generations.get(gen) : gen, attacker, defender, move, field);

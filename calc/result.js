@@ -72,21 +72,17 @@ var Result = /** @class */ (function () {
 }());
 exports.Result = Result;
 function damageRange(damage) {
-    // Fixed Damage
     if (typeof damage === 'number')
         return [damage, damage];
-    // Standard Damage
     if (damage.length > 2) {
         var d_1 = damage;
         if (d_1[0] > d_1[d_1.length - 1])
             return [Math.min.apply(Math, __spreadArray([], __read(d_1), false)), Math.max.apply(Math, __spreadArray([], __read(d_1), false))];
         return [d_1[0], d_1[d_1.length - 1]];
     }
-    // Fixed Parental Bond Damage
     if (typeof damage[0] === 'number' && typeof damage[1] === 'number') {
         return [[damage[0], damage[1]], [damage[0], damage[1]]];
     }
-    // Parental Bond Damage
     var d = damage;
     if (d[0][0] > d[0][d[0].length - 1])
         d[0] = d[0].slice().sort();

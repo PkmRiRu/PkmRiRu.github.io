@@ -149,7 +149,6 @@ exports.Stats = new (/** @class */ (function () {
         };
         var stats = { hp: 31, atk: 31, def: 31, spe: 31, spa: 31, spd: 31 };
         if (gen.num <= 2) {
-            // Gen 2 specific Hidden Power check. IVs are still treated 0-31 so we get them 0-15
             var atkDV = tr(ivs.atk / 2);
             var defDV = tr(ivs.def / 2);
             var speDV = tr(ivs.spe / 2);
@@ -164,7 +163,6 @@ exports.Stats = new (/** @class */ (function () {
             };
         }
         else {
-            // Hidden Power check for Gen 3 onwards
             var hpTypeX = 0;
             var hpPowerX = 0;
             var i = 1;
@@ -175,7 +173,6 @@ exports.Stats = new (/** @class */ (function () {
             }
             return {
                 type: HP_TYPES[tr(hpTypeX * 15 / 63)],
-                // After Gen 6, Hidden Power is always 60 base power
                 power: (gen.num && gen.num < 6) ? tr(hpPowerX * 40 / 63) + 30 : 60
             };
         }

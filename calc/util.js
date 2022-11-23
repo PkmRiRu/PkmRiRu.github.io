@@ -22,8 +22,6 @@ function assignWithout(a, b, exclude) {
     }
 }
 exports.assignWithout = assignWithout;
-// jQuery JavaScript Library v2.0.3
-// Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
 var class2Type = {
     '[object Boolean]': 'boolean',
     '[object Number]': 'number',
@@ -84,13 +82,11 @@ function extend() {
         target = {};
     }
     if (length === i) {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
         target = this;
         --i;
     }
     for (; i < length; i++) {
         if ((options = args[i]) != null) {
-            // tslint:disable-next-line: forin
             for (name in options) {
                 src = target[name];
                 copy = options[name];
