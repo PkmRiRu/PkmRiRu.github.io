@@ -182,7 +182,7 @@ var RBY = {
     Agility: { bp: 0, category: 'Status', type: 'Psychic' },
     'Confuse Ray': { bp: 0, category: 'Status', type: 'Ghost' },
     Confusion: { bp: 50, type: 'Psychic' },
-    Cut: { bp: 50, type: 'Normal' },
+    Cut: { bp: 70, type: 'Grass' },
     'Double Team': { bp: 0, category: 'Status', type: 'Normal' },
     'Drill Peck': { bp: 80, type: 'Flying' },
     Ember: { bp: 40, type: 'Fire' },
