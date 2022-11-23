@@ -22,12 +22,12 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 exports.__esModule = true;
-exports.Pokemon = void 0;
+
 var stats_1 = require("./stats");
 var util_1 = require("./util");
 var STATS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 var SPC = new Set(['spc']);
-var Pokemon = /** @class */ (function () {
+var Pokemon = (function () {
     function Pokemon(gen, name, options) {
         var e_1, _a;
         if (options === void 0) { options = {}; }
@@ -202,3 +202,4 @@ var Pokemon = /** @class */ (function () {
     return Pokemon;
 }());
 exports.Pokemon = Pokemon;
+//# sourceMappingURL=pokemon.js.map

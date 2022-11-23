@@ -25,9 +25,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.damageRange = exports.Result = void 0;
+
 var desc_1 = require("./desc");
-var Result = /** @class */ (function () {
+var Result = (function () {
     function Result(gen, attacker, defender, move, field, damage, rawDesc) {
         this.gen = gen;
         this.attacker = attacker;
@@ -37,7 +37,7 @@ var Result = /** @class */ (function () {
         this.damage = damage;
         this.rawDesc = rawDesc;
     }
-    /* get */ Result.prototype.desc = function () {
+    Result.prototype.desc = function () {
         return this.fullDesc();
     };
     Result.prototype.range = function () {
@@ -91,3 +91,4 @@ function damageRange(damage) {
     return [[d[0][0], d[1][0]], [d[0][d[0].length - 1], d[1][d[1].length - 1]]];
 }
 exports.damageRange = damageRange;
+//# sourceMappingURL=result.js.map

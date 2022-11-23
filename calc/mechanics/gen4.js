@@ -25,12 +25,11 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.calculateDPP = void 0;
+
 var items_1 = require("../items");
 var result_1 = require("../result");
 var util_1 = require("./util");
 function calculateDPP(gen, attacker, defender, move, field) {
-    // #region Initial
     (0, util_1.checkAirLock)(attacker, field);
     (0, util_1.checkAirLock)(defender, field);
     (0, util_1.checkForecast)(attacker, field.weather);
@@ -107,7 +106,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         ? (0, util_1.getMoveEffectiveness)(gen, move, defender.types[1], isGhostRevealed, field.isGravity)
         : 1;
     var typeEffectiveness = type1Effectiveness * type2Effectiveness;
-    // Iron Ball ignores Klutz in generation 4
     if (typeEffectiveness === 0 && move.hasType('Ground') && defender.hasItem('Iron Ball')) {
         if (type1Effectiveness === 0) {
             type1Effectiveness = 1;
@@ -141,8 +139,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.hits = move.hits;
     }
     var turnOrder = attacker.stats.spe > defender.stats.spe ? 'first' : 'last';
-    // #endregion
-    // #region Base Power
     switch (move.name) {
         case 'Brine':
             if (defender.curHP() <= defender.maxHP() / 2) {
@@ -197,12 +193,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 basePower *= 2;
                 desc.moveBP = basePower;
             }
-            break;
-        case 'Nature Power':
-            move.category = 'Special';
-            move.secondaries = true;
-            basePower = 80;
-            desc.moveName = 'Tri Attack';
             break;
         case 'Crush Grip':
         case 'Wring Out':
@@ -261,8 +251,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         basePower = Math.floor(basePower * 1.25);
         desc.defenderAbility = defender.ability;
     }
-    // #endregion
-    // #region (Special) Attack
     var attackStat = isPhysical ? 'atk' : 'spa';
     desc.attackEVs = (0, util_1.getEVDescriptionText)(gen, attacker, attackStat, attacker.nature);
     var attack;
@@ -294,11 +282,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.attackerAbility = attacker.ability;
         desc.weather = field.weather;
     }
-    else if (field.attackerSide.isFlowerGift && field.hasWeather('Sun') && isPhysical) {
-        attack = Math.floor(attack * 1.5);
-        desc.weather = field.weather;
-        desc.isFlowerGiftAttacker = true;
-    }
     else if ((isPhysical &&
         (attacker.hasAbility('Hustle') || (attacker.hasAbility('Guts') && attacker.status)) ||
         (!isPhysical && attacker.abilityOn && attacker.hasAbility('Plus', 'Minus')))) {
@@ -320,8 +303,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         attack *= 2;
         desc.attackerItem = attacker.item;
     }
-    // #endregion
-    // #region (Special) Defense
     var defenseStat = isPhysical ? 'def' : 'spd';
     desc.defenseEVs = (0, util_1.getEVDescriptionText)(gen, defender, defenseStat, defender.nature);
     var defense;
@@ -352,11 +333,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.defenderAbility = defender.ability;
         desc.weather = field.weather;
     }
-    else if (field.defenderSide.isFlowerGift && field.hasWeather('Sun') && !isPhysical) {
-        defense = Math.floor(defense * 1.5);
-        desc.weather = field.weather;
-        desc.isFlowerGiftDefender = true;
-    }
     if (defender.hasItem('Soul Dew') && defender.named('Latios', 'Latias') && !isPhysical) {
         defense = Math.floor(defense * 1.5);
         desc.defenderItem = defender.item;
@@ -376,8 +352,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
     if (defense < 1) {
         defense = 1;
     }
-    // #endregion
-    // #region Damage
     var baseDamage = Math.floor(Math.floor((Math.floor((2 * attacker.level) / 5 + 2) * basePower * attack) / 50) / defense);
     if (attacker.hasStatus('brn') && isPhysical && !attacker.hasAbility('Guts')) {
         baseDamage = Math.floor(baseDamage * 0.5);
@@ -429,7 +403,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.attackerItem = attacker.item;
     }
     if (move.named('Pursuit') && field.defenderSide.isSwitching === 'out') {
-        // technician negates switching boost, thanks DaWoblefet
         if (attacker.hasAbility('Technician')) {
             baseDamage = Math.floor(baseDamage * 1);
         }
@@ -438,8 +411,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
             desc.isSwitching = 'out';
         }
     }
-    // the random factor is applied between the LO mod and the STAB mod, so don't apply anything
-    // below this until we're inside the loop
     var stabMod = 1;
     if (move.hasType.apply(move, __spreadArray([], __read(attacker.types), false))) {
         if (attacker.hasAbility('Adaptability')) {
@@ -484,7 +455,6 @@ function calculateDPP(gen, attacker, defender, move, field) {
         damage[i] = Math.max(1, damage[i]);
     }
     result.damage = damage;
-    // #endregion
     return result;
 }
 exports.calculateDPP = calculateDPP;
@@ -494,3 +464,4 @@ function getSimpleModifiedStat(stat, mod) {
         ? Math.floor((stat * (2 + simpleMod)) / 2)
         : simpleMod < 0 ? Math.floor((stat * 2) / (2 - simpleMod)) : stat;
 }
+//# sourceMappingURL=gen4.js.map

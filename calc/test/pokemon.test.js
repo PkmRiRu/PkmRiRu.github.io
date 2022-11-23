@@ -17,7 +17,6 @@ describe('Pokemon', function () {
         expect(p.toxicCounter).toBe(0);
         expect(p.curHP()).toBe(p.stats.hp);
         var stat;
-        // tslint:disable-next-line:forin
         for (stat in p.ivs) {
             expect(p.ivs[stat]).toBe(31);
             expect(p.evs[stat]).toBe(0);
@@ -63,11 +62,9 @@ describe('Pokemon', function () {
             evs: { atk: 200 },
             curHP: 500
         });
-        // HP DV should be derived
         expect(p.ivs).toEqual({ hp: 20, atk: 31, def: 16, spa: 20, spd: 20, spe: 31 });
         expect(p.evs).toEqual({ hp: 252, atk: 200, def: 252, spa: 252, spd: 252, spe: 252 });
         expect(p.stats).toEqual({ hp: 343, atk: 298, def: 274, spa: 228, spd: 228, spe: 318 });
-        // curHP() capped to maxHP
         expect(p.curHP()).toBe(p.maxHP());
     });
     test('getForme', function () {
@@ -102,3 +99,4 @@ describe('Pokemon', function () {
         expect(new index_1.Pokemon(8, 'Venusaur-Gmax', { overrides: { weightkg: 50 } }).weightkg).toBe(50);
     });
 });
+//# sourceMappingURL=pokemon.test.js.map

@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.extend = exports.assignWithout = exports.error = exports.toID = void 0;
+
 function toID(text) {
     return ('' + text).toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
@@ -112,3 +112,4 @@ function extend() {
     return target;
 }
 exports.extend = extend;
+//# sourceMappingURL=util.js.map

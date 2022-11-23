@@ -1,13 +1,13 @@
 "use strict";
 exports.__esModule = true;
-exports.Generations = void 0;
+
 var abilities_1 = require("./abilities");
 var items_1 = require("./items");
 var moves_1 = require("./moves");
 var species_1 = require("./species");
 var types_1 = require("./types");
 var natures_1 = require("./natures");
-exports.Generations = new (/** @class */ (function () {
+exports.Generations = new ((function () {
     function class_1() {
     }
     class_1.prototype.get = function (gen) {
@@ -15,7 +15,7 @@ exports.Generations = new (/** @class */ (function () {
     };
     return class_1;
 }()))();
-var Generation = /** @class */ (function () {
+var Generation = (function () {
     function Generation(num) {
         this.num = num;
         this.abilities = new abilities_1.Abilities(num);
@@ -27,3 +27,4 @@ var Generation = /** @class */ (function () {
     }
     return Generation;
 }());
+//# sourceMappingURL=index.js.map

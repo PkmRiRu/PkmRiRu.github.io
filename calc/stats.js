@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.Stats = exports.STATS = void 0;
+
 var util_1 = require("./util");
 var RBY = ['hp', 'atk', 'def', 'spc', 'spe'];
 var GSC = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
@@ -33,7 +33,7 @@ var HP = {
     Steel: { ivs: { spd: 30 }, dvs: { atk: 13 } },
     Water: { ivs: { atk: 30, def: 30, spa: 30 }, dvs: { atk: 14, def: 13 } }
 };
-exports.Stats = new (/** @class */ (function () {
+exports.Stats = new ((function () {
     function class_1() {
     }
     class_1.prototype.displayStat = function (stat) {
@@ -179,3 +179,4 @@ exports.Stats = new (/** @class */ (function () {
     };
     return class_1;
 }()))();
+//# sourceMappingURL=stats.js.map

@@ -5,7 +5,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -64,7 +64,7 @@ var __values = (this && this.__values) || function(o) {
 };
 var e_1, _a, e_2, _b;
 exports.__esModule = true;
-exports.Items = exports.ITEMS = exports.MEGA_STONES = void 0;
+
 var util_1 = require("../util");
 var RBY = [];
 var GSC = [
@@ -516,9 +516,7 @@ var SS = SM.concat([
 for (var i = 0; i < 100; i++) {
     SS.push("TR".concat(i < 10 ? "0".concat(i) : i));
 }
-// Added after the TR's to maintain sort order
 SS.push('Utility Umbrella', 'Vile Vial');
-// Because we support National Dex all Past items are added back in
 SS.push.apply(SS, __spreadArray(__spreadArray([], __read(GSC_ONLY), false), ['Old Amber'], false));
 var BERRIES = {
     'Aguav Berry': { t: 'Dragon', p: 80 },
@@ -600,7 +598,7 @@ var BERRIES = {
     'Yache Berry': { t: 'Ice', p: 80 }
 };
 exports.ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS];
-var Items = /** @class */ (function () {
+var Items = (function () {
     function Items(gen) {
         this.gen = gen;
     }
@@ -608,36 +606,33 @@ var Items = /** @class */ (function () {
         return ITEMS_BY_ID[this.gen][id];
     };
     Items.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = ITEMS_BY_ID[this.gen];
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in ITEMS_BY_ID[this.gen])
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
-                    return [4 /*yield*/, this.get(id)];
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
+                    return [4, this.get(id)];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Items;
 }());
 exports.Items = Items;
-var Item = /** @class */ (function () {
+var Item = (function () {
     function Item(name, gen) {
         this.kind = 'Item';
         this.id = (0, util_1.toID)(name);
@@ -685,3 +680,4 @@ finally {
     }
     finally { if (e_1) throw e_1.error; }
 }
+//# sourceMappingURL=items.js.map

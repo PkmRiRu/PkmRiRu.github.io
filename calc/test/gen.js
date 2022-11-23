@@ -16,7 +16,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -63,13 +63,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.Natures = exports.Types = exports.Generations = exports.toID = void 0;
+
 function toID(s) {
     return ('' + s).toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 exports.toID = toID;
 var GENERATIONS = Object.create(null);
-var Generations = /** @class */ (function () {
+var Generations = (function () {
     function Generations(dex) {
         this.dex = dex;
     }
@@ -81,7 +81,7 @@ var Generations = /** @class */ (function () {
     return Generations;
 }());
 exports.Generations = Generations;
-var Generation = /** @class */ (function () {
+var Generation = (function () {
     function Generation(dex) {
         this.dex = dex;
         this.abilities = new Abilities(dex);
@@ -94,7 +94,7 @@ var Generation = /** @class */ (function () {
     }
     return Generation;
 }());
-var Abilities = /** @class */ (function () {
+var Abilities = (function () {
     function Abilities(dex) {
         this.dex = dex;
     }
@@ -105,37 +105,34 @@ var Abilities = /** @class */ (function () {
         return exists(ability, this.dex.gen) ? new Ability(ability) : undefined;
     };
     Abilities.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id, a;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id, a;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = this.dex.data.Abilities;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in this.dex.data.Abilities)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
                     a = this.get(id);
-                    if (!a) return [3 /*break*/, 3];
-                    return [4 /*yield*/, a];
+                    if (!a) return [3, 3];
+                    return [4, a];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Abilities;
 }());
-var Ability = /** @class */ (function () {
+var Ability = (function () {
     function Ability(ability) {
         this.kind = 'Ability';
         this.id = ability.id;
@@ -143,7 +140,7 @@ var Ability = /** @class */ (function () {
     }
     return Ability;
 }());
-var Items = /** @class */ (function () {
+var Items = (function () {
     function Items(dex) {
         this.dex = dex;
     }
@@ -151,45 +148,40 @@ var Items = /** @class */ (function () {
         if (this.dex.gen < 2)
             return undefined;
         var item = this.dex.items.get(name);
-        // Enigma Berry is Unobtainable in Gen 3, but the damage calc supports Unobtainable data and
-        // needs the naturalGift data which is only defined in Gen 4.
         if (this.dex.gen === 3 && item.id === 'enigmaberry') {
             item = this.dex.forGen(4).items.get('enigmaberry');
         }
         return exists(item, this.dex.gen) ? new Item(item, this.dex.gen) : undefined;
     };
     Items.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id, i;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id, i;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = this.dex.data.Items;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in this.dex.data.Items)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
                     i = this.get(id);
-                    if (!i) return [3 /*break*/, 3];
-                    return [4 /*yield*/, i];
+                    if (!i) return [3, 3];
+                    return [4, i];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Items;
 }());
-var Item = /** @class */ (function () {
+var Item = (function () {
     function Item(item, gen) {
         this.kind = 'Item';
         this.id = item.id;
@@ -203,7 +195,7 @@ var Item = /** @class */ (function () {
     }
     return Item;
 }());
-var Moves = /** @class */ (function () {
+var Moves = (function () {
     function Moves(dex) {
         this.dex = dex;
     }
@@ -212,39 +204,36 @@ var Moves = /** @class */ (function () {
         return exists(move, this.dex.gen) ? new Move(move, this.dex) : undefined;
     };
     Moves.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id, m;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0: return [4 /*yield*/, NoMove(this.dex)];
+        var _a, _b, _i, id, m;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4, NoMove(this.dex)];
                 case 1:
-                    _d.sent();
-                    _a = this.dex.data.Moves;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _c.sent();
+                    _a = [];
+                    for (_b in this.dex.data.Moves)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 2;
+                    _c.label = 2;
                 case 2:
-                    if (!(_i < _b.length)) return [3 /*break*/, 5];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 4];
-                    id = _c;
+                    if (!(_i < _a.length)) return [3, 5];
+                    id = _a[_i];
                     m = this.get(id);
-                    if (!m) return [3 /*break*/, 4];
-                    return [4 /*yield*/, m];
+                    if (!m) return [3, 4];
+                    return [4, m];
                 case 3:
-                    _d.sent();
-                    _d.label = 4;
+                    _c.sent();
+                    _c.label = 4;
                 case 4:
                     _i++;
-                    return [3 /*break*/, 2];
-                case 5: return [2 /*return*/];
+                    return [3, 2];
+                case 5: return [2];
             }
         });
     };
     return Moves;
 }());
-var Move = /** @class */ (function () {
+var Move = (function () {
     function Move(move, dex) {
         var _a, _b, _c;
         this.kind = 'Move';
@@ -327,7 +316,7 @@ var Move = /** @class */ (function () {
     }
     return Move;
 }());
-var Species = /** @class */ (function () {
+var Species = (function () {
     function Species(dex) {
         this.dex = dex;
     }
@@ -338,42 +327,38 @@ var Species = /** @class */ (function () {
         return exists(species, this.dex.gen) ? new Specie(species, this.dex) : undefined;
     };
     Species.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id, s;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id, s;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = this.dex.data.Species;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in this.dex.data.Species)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 6];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 5];
-                    id = _c;
+                    if (!(_i < _a.length)) return [3, 6];
+                    id = _a[_i];
                     s = this.get(id);
-                    if (!s) return [3 /*break*/, 5];
-                    if (!(id === 'aegislash')) return [3 /*break*/, 3];
-                    return [4 /*yield*/, AegislashBoth(this.dex)];
+                    if (!s) return [3, 5];
+                    if (!(id === 'aegislash')) return [3, 3];
+                    return [4, AegislashBoth(this.dex)];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
-                case 3: return [4 /*yield*/, s];
+                    _c.sent();
+                    _c.label = 3;
+                case 3: return [4, s];
                 case 4:
-                    _d.sent();
-                    _d.label = 5;
+                    _c.sent();
+                    _c.label = 5;
                 case 5:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 6: return [2 /*return*/];
+                    return [3, 1];
+                case 6: return [2];
             }
         });
     };
     return Species;
 }());
-// Custom Move placeholder
 function NoMove(dex) {
     return new Move({
         id: 'nomove',
@@ -387,7 +372,7 @@ function NoMove(dex) {
         priority: 0
     }, dex);
 }
-var Specie = /** @class */ (function () {
+var Specie = (function () {
     function Specie(species, dex) {
         var _a, _b;
         this.kind = 'Species';
@@ -432,7 +417,6 @@ var Specie = /** @class */ (function () {
         else if (species.baseSpecies !== this.name) {
             this.baseSpecies = species.baseSpecies;
         }
-        // TODO: clean this up with proper Gigantamax support
         if (dex.gen === 8 && species.canGigantamax &&
             !(species.id.startsWith('toxtricity') || species.id.startsWith('urshifu'))) {
             var formes_1 = this.otherFormes || [];
@@ -445,7 +429,6 @@ var Specie = /** @class */ (function () {
     }
     return Specie;
 }());
-// Custom Aegislash forme
 function AegislashBoth(dex) {
     var shield = dex.species.get('aegislash');
     var blade = dex.species.get('aegislashblade');
@@ -460,7 +443,7 @@ function AegislashBoth(dex) {
     return new Specie(__assign(__assign({}, shield), { baseStats: baseStats, id: 'aegislashboth', name: 'Aegislash-Both' }), dex);
 }
 var DAMAGE_TAKEN = [1, 2, 0.5, 0];
-var Types = /** @class */ (function () {
+var Types = (function () {
     function Types(dex) {
         this.dex = dex;
         var unknown = {
@@ -487,40 +470,36 @@ var Types = /** @class */ (function () {
         this.byID[unknown.id] = unknown;
     }
     Types.prototype.get = function (name) {
-        // toID('???') => '', as do many other things, but returning the '???' type seems appropriate :)
         return this.byID[toID(name)];
     };
     Types.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = this.byID;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in this.byID)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
-                    return [4 /*yield*/, this.byID[id]];
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
+                    return [4, this.byID[id]];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Types;
 }());
 exports.Types = Types;
-var Natures = /** @class */ (function () {
+var Natures = (function () {
     function Natures(dex) {
         this.dex = dex;
     }
@@ -529,38 +508,35 @@ var Natures = /** @class */ (function () {
         return nature.exists ? new Nature(nature) : undefined;
     };
     Natures.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id, n;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id, n;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = this.dex.data.Natures;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in this.dex.data.Natures)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
                     n = this.get(id);
-                    if (!n) return [3 /*break*/, 3];
-                    return [4 /*yield*/, n];
+                    if (!n) return [3, 3];
+                    return [4, n];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Natures;
 }());
 exports.Natures = Natures;
-var Nature = /** @class */ (function () {
+var Nature = (function () {
     function Nature(nature) {
         this.kind = 'Nature';
         this.id = nature.id;
@@ -613,9 +589,9 @@ function exists(val, gen) {
         return true;
     if (gen === 8 && ['eternatuseternamax', 'zarude', 'zarudedada'].includes(val.id))
         return true;
-    // TODO: clean this up with proper Gigantamax support
     if (val.isNonstandard && !['CAP', 'Unobtainable', 'Gigantamax'].includes(val.isNonstandard)) {
         return false;
     }
     return !('tier' in val && ['Illegal', 'Unreleased'].includes(val.tier));
 }
+//# sourceMappingURL=gen.js.map

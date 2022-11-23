@@ -1,5 +1,4 @@
 "use strict";
-/* eslint-disable max-len */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -659,7 +658,7 @@ describe('calc', function () {
                     55725, 56380, 57036, 57691,
                     58347, 59003, 59658, 60314,
                     60969, 61625, 62281, 62936,
-                    63592, 64247, 64903, 23, // <- overflow: 65559 & 0xFFFF
+                    63592, 64247, 64903, 23,
                 ]);
             });
             test('32-bit Overflow', function () {
@@ -748,3 +747,4 @@ describe('calc', function () {
         });
     });
 });
+//# sourceMappingURL=calc.test.js.map

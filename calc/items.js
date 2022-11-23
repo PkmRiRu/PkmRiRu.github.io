@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.getMultiAttack = exports.getTechnoBlast = exports.getNaturalGift = exports.getFlingPower = exports.getBerryResistType = exports.getItemBoostType = exports.SEED_BOOSTED_STAT = void 0;
+
 var util_1 = require("./util");
 exports.SEED_BOOSTED_STAT = {
     'Electric Seed': 'def',
@@ -366,7 +366,6 @@ var FLING_10 = new Set([
     'TR88',
     'TR91',
 ]);
-// TODO: move this data to the data files instead.
 function getFlingPower(item) {
     if (!item)
         return 0;
@@ -431,3 +430,4 @@ function getMultiAttack(item) {
     return undefined;
 }
 exports.getMultiAttack = getMultiAttack;
+//# sourceMappingURL=items.js.map

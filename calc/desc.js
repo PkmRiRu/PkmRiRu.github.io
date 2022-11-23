@@ -16,7 +16,7 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 exports.__esModule = true;
-exports.getKOChance = exports.getRecoil = exports.getRecovery = exports.displayMove = exports.display = void 0;
+
 var result_1 = require("./result");
 var util_1 = require("./util");
 var util_2 = require("./mechanics/util");
@@ -154,7 +154,7 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
     else if (move.struggleRecoil) {
         recoil = notation === '%' ? 12 : 25;
         text = '25% struggle damage';
-         if (gen.num === 4)
+        if (gen.num === 4)
             text += ' (rounded down)';
     }
     else if (move.mindBlownRecoil) {
@@ -199,7 +199,7 @@ function getKOChance(gen, attacker, defender, move, field, damage, err) {
     if ((move.timesUsed === 1 && move.timesUsedWithMetronome === 1) || move.isZ) {
         var chance = computeKOChance(damage, defender.curHP() - hazards.damage, 0, 1, 1, defender.maxHP(), toxicCounter);
         if (chance === 1) {
-            return { chance: chance, n: 1, text: "guaranteed OHKO".concat(hazardsText) }; // eot wasn't considered
+            return { chance: chance, n: 1, text: "guaranteed OHKO".concat(hazardsText) };
         }
         else if (chance > 0) {
             return {
@@ -286,8 +286,8 @@ function combine(damage) {
     }
     var d = damage;
     var combined = [];
-    for (var i = 0; i < d[0].length; i++) { // eslint-disable-line
-        for (var j = 0; j < d[1].length; j++) { // eslint-disable-line
+    for (var i = 0; i < d[0].length; i++) {
+        for (var j = 0; j < d[1].length; j++) {
             combined.push(d[0][i] + d[1][j]);
         }
     }
@@ -668,9 +668,6 @@ function buildDescription(description, attacker, defender) {
     if (description.isHelpingHand) {
         output += 'Helping Hand ';
     }
-    if (description.isFlowerGiftAttacker) {
-        output += ' with an ally\'s Flower Gift ';
-    }
     if (description.isBattery) {
         output += ' Battery boosted ';
     }
@@ -729,9 +726,6 @@ function buildDescription(description, attacker, defender) {
     else if (description.isLightScreen) {
         output += ' through Light Screen';
     }
-    if (description.isFlowerGiftDefender) {
-        output += ' with an ally\'s Flower Gift';
-    }
     if (description.isFriendGuard) {
         output += ' with an ally\'s Friend Guard';
     }
@@ -782,3 +776,4 @@ function toDisplay(notation, a, b, f) {
     if (f === void 0) { f = 1; }
     return notation === '%' ? Math.floor((a * (1000 / f)) / b) / 10 : Math.floor((a * (48 / f)) / b);
 }
+//# sourceMappingURL=desc.js.map

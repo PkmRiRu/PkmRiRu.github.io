@@ -40,13 +40,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 exports.__esModule = true;
 
 var data_1 = require("./data");
-var A = require("./adaptable");
+var A = __importStar(require("./adaptable"));
 var Acalculate = exports.calculate;
 function calculate(gen, attacker, defender, move, field) {
     return (Acalculate || A.calculate)(typeof gen === 'number' ? data_1.Generations.get(gen) : gen, attacker, defender, move, field);
 }
 exports.calculate = calculate;
-var Move = /** @class */ (function (_super) {
+var Move = (function (_super) {
     __extends(Move, _super);
     function Move(gen, name, options) {
         if (options === void 0) { options = {}; }
@@ -55,7 +55,7 @@ var Move = /** @class */ (function (_super) {
     return Move;
 }(A.Move));
 exports.Move = Move;
-var Pokemon = /** @class */ (function (_super) {
+var Pokemon = (function (_super) {
     __extends(Pokemon, _super);
     function Pokemon(gen, name, options) {
         if (options === void 0) { options = {}; }
@@ -96,3 +96,4 @@ __createBinding(exports, types_1, "TYPE_CHART");
 var stats_1 = require("./stats");
 __createBinding(exports, stats_1, "STATS");
 __createBinding(exports, stats_1, "Stats");
+//# sourceMappingURL=index.js.map

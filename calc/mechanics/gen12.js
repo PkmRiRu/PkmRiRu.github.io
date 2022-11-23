@@ -25,7 +25,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.calculateRBYGSC = void 0;
+
 var items_1 = require("../items");
 var result_1 = require("../result");
 var util_1 = require("./util");
@@ -44,7 +44,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         desc.isProtected = true;
         return result;
     }
-    // Fixed damage moves (eg. Night Shade) ignore type effectiveness in Gen 1
     if (gen.num === 1) {
         var fixedDamage = (0, util_1.handleFixedDamageMoves)(attacker, move);
         if (fixedDamage) {
@@ -70,7 +69,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
     if (move.hits > 1) {
         desc.hits = move.hits;
     }
-    // Flail and Reversal are variable BP and never crit
     if (move.named('Flail', 'Reversal')) {
         move.isCrit = false;
         var p = Math.floor((48 * attacker.curHP()) / attacker.maxHP());
@@ -78,8 +76,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         desc.moveBP = move.bp;
     }
     else if (move.named('Present') && !move.bp) {
-        // Present is technically 0 BP so we default to 40 in that case, but the UI may override the
-        // base power in order to simulate the scenarios where it is 80 or 120 BP.
         move.bp = 40;
     }
     if (move.bp === 0) {
@@ -90,8 +86,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
     var defenseStat = isPhysical ? 'def' : 'spd';
     var at = attacker.stats[attackStat];
     var df = defender.stats[defenseStat];
-    // Whether we ignore Reflect, Light Screen, stat stages, and burns if attack is a crit differs
-    // by gen - in gen 2 we also need to check that the attacker does not have stat stage advantage
     var ignoreMods = move.isCrit &&
         (gen.num === 1 ||
             (gen.num === 2 && attacker.boosts[attackStat] <= defender.boosts[defenseStat]));
@@ -136,8 +130,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         at = Math.floor(at / 4) % 256;
         df = Math.floor(df / 4) % 256;
     }
-    // Gen 2 Present has a glitched damage calculation using the secondary types of the Pokemon
-    // for the Attacker's Level and Defender's Defense.
     if (move.named('Present')) {
         var lookup = {
             Normal: 0, Fighting: 1, Flying: 2, Poison: 3, Ground: 4, Rock: 5, Bug: 7,
@@ -153,7 +145,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         desc.defenderItem = defender.item;
     }
     var baseDamage = Math.floor(Math.floor((Math.floor((2 * lv) / 5 + 2) * Math.max(1, at) * move.bp) / Math.max(1, df)) / 50);
-    // Gen 1 handles move.isCrit above by doubling level
     if (gen.num === 2 && move.isCrit) {
         baseDamage *= 2;
         desc.isCritical = true;
@@ -162,7 +153,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         baseDamage = Math.floor(baseDamage * 2);
         desc.isSwitching = 'out';
     }
-    // In Gen 2 and no other gens, Dragon Fang in a no-op and Dragon Scale erroneously has its effect
     var itemBoostType = attacker.hasItem('Dragon Fang')
         ? undefined
         : (0, items_1.getItemBoostType)(attacker.hasItem('Dragon Scale') ? 'Dragon Fang' : attacker.item);
@@ -185,7 +175,6 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
         baseDamage = Math.floor(baseDamage * 1.5);
     }
     baseDamage = Math.floor(baseDamage * typeEffectiveness);
-    // Flail and Reversal don't use random factor
     if (move.named('Flail', 'Reversal')) {
         result.damage = baseDamage;
         return result;
@@ -197,3 +186,4 @@ function calculateRBYGSC(gen, attacker, defender, move, field) {
     return result;
 }
 exports.calculateRBYGSC = calculateRBYGSC;
+//# sourceMappingURL=gen12.js.map

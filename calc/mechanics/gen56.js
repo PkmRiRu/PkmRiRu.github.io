@@ -1,12 +1,11 @@
 "use strict";
 exports.__esModule = true;
-exports.calculateBWXY = void 0;
+
 var util_1 = require("../util");
 var items_1 = require("../items");
 var result_1 = require("../result");
 var util_2 = require("./util");
 function calculateBWXY(gen, attacker, defender, move, field) {
-    // #region Initial
     var _a;
     (0, util_2.checkAirLock)(attacker, field);
     (0, util_2.checkAirLock)(defender, field);
@@ -70,16 +69,12 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         desc.moveType = move.type;
     }
     else if (move.named('Nature Power')) {
-        if (gen.num === 5) {
-            move.type = 'Ground';
-        }
-        else {
-            move.type =
-                field.hasTerrain('Electric') ? 'Electric'
-                    : field.hasTerrain('Grassy') ? 'Grass'
-                        : field.hasTerrain('Misty') ? 'Fairy'
+        move.type =
+            field.hasTerrain('Electric') ? 'Electric'
+                : field.hasTerrain('Grassy') ? 'Grass'
+                    : field.hasTerrain('Misty') ? 'Fairy'
+                        : field.hasTerrain('Psychic') ? 'Psychic'
                             : 'Normal';
-        }
     }
     var isAerilate = false;
     var isPixilate = false;
@@ -120,8 +115,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         (defender.name.includes('Genesect') && defender.item.includes('Drive')) ||
         (defender.named('Groudon', 'Groudon-Primal') && defender.hasItem('Red Orb')) ||
         (defender.named('Kyogre', 'Kyogre-Primal') && defender.hasItem('Blue Orb'));
-    // The last case only applies when the Pokemon is holding the Mega Stone that matches its species
-    // (or when it's already a Mega-Evolution)
     if (!resistedKnockOffDamage && defender.item) {
         var item = gen.items.get((0, util_1.toID)(defender.item));
         resistedKnockOffDamage = !!(item.megaEvolves && defender.name.includes(item.megaEvolves));
@@ -150,11 +143,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         (move.named('Synchronoise') && !defender.hasType(attacker.types[0]) &&
             (!attacker.types[1] || !defender.hasType(attacker.types[1]))) ||
         (move.named('Dream Eater') && !defender.hasStatus('slp'))) {
-        return result;
-    }
-    if ((field.hasWeather('Harsh Sunshine') && move.hasType('Water')) ||
-        (field.hasWeather('Heavy Rain') && move.hasType('Fire'))) {
-        desc.weather = field.weather;
         return result;
     }
     if (field.hasWeather('Strong Winds') && defender.hasType('Flying') &&
@@ -205,8 +193,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         desc.hits = move.hits;
     }
     var turnOrder = attacker.stats.spe > defender.stats.spe ? 'first' : 'last';
-    // #endregion
-    // #region Base Power
     var basePower;
     switch (move.name) {
         case 'Payback':
@@ -221,15 +207,11 @@ function calculateBWXY(gen, attacker, defender, move, field) {
             desc.moveBP = basePower;
             break;
         case 'Electro Ball':
-            if (defender.stats.spe === 0)
-                defender.stats.spe = 1;
             var r = Math.floor(attacker.stats.spe / defender.stats.spe);
             basePower = r >= 4 ? 150 : r >= 3 ? 120 : r >= 2 ? 80 : r >= 1 ? 60 : 40;
             desc.moveBP = basePower;
             break;
         case 'Gyro Ball':
-            if (attacker.stats.spe === 0)
-                attacker.stats.spe = 1;
             basePower = Math.min(150, Math.floor((25 * defender.stats.spe) / attacker.stats.spe) + 1);
             desc.moveBP = basePower;
             break;
@@ -265,7 +247,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
             break;
         case 'Assurance':
             basePower = move.bp * (defender.hasAbility('Parental Bond (Child)') ? 2 : 1);
-            // NOTE: desc.attackerAbility = 'Parental Bond' will already reflect this boost
             break;
         case 'Wake-Up Slap':
             basePower = move.bp * (defender.hasStatus('slp') ? 2 : 1);
@@ -296,35 +277,11 @@ function calculateBWXY(gen, attacker, defender, move, field) {
             desc.moveBP = basePower;
             break;
         case 'Nature Power':
-            if (gen.num === 5) {
-                move.category = 'Physical';
-                move.target = 'allAdjacent';
-                basePower = 100;
-                desc.moveName = 'Earthquake';
-            }
-            else {
-                move.category = 'Special';
-                move.secondaries = true;
-                switch (field.terrain) {
-                    case 'Electric':
-                        basePower = 90;
-                        desc.moveName = 'Thunderbolt';
-                        break;
-                    case 'Grassy':
-                        basePower = 90;
-                        desc.moveName = 'Energy Ball';
-                        break;
-                    case 'Misty':
-                        basePower = 95;
-                        desc.moveName = 'Moonblast';
-                        break;
-                    default:
-                        basePower = 80;
-                        desc.moveName = 'Tri Attack';
-                }
-            }
+            basePower =
+                field.terrain && field.hasTerrain('Electric', 'Grassy') ? 90
+                    : field.hasTerrain('Misty') ? 95
+                        : 80;
             break;
-        // Triple Kick's damage doubles after each consecutive hit (10, 20, 30), this is a hack
         case 'Triple Kick':
             basePower = move.hits === 2 ? 15 : move.hits === 3 ? 30 : 10;
             desc.moveBP = basePower;
@@ -342,7 +299,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         return result;
     }
     var bpMods = [];
-    // Use BasePower after moves with custom BP to determine if Technician should boost
     if ((attacker.hasAbility('Technician') && basePower <= 60) ||
         (attacker.hasAbility('Flare Boost') &&
             attacker.hasStatus('brn') && move.category === 'Special') ||
@@ -470,8 +426,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
                 desc.defenderAbility = defender.ability;
         }
     }
-    // It's not actually clear if the terrain modifiers are base damage mods like weather or are
-    // base power mods like in Gen 7+, but the research doesn't exist for this yet so we match PS here
     if ((0, util_2.isGrounded)(attacker, field)) {
         if ((field.hasTerrain('Electric') && move.hasType('Electric')) ||
             (field.hasTerrain('Grassy') && move.hasType('Grass'))) {
@@ -486,9 +440,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
             desc.terrain = field.terrain;
         }
     }
-    basePower = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((basePower * (0, util_2.chainMods)(bpMods, 41, 2097152)) / 4096)));
-    // #endregion
-    // #region (Special) Attack
+    basePower = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((basePower * (0, util_2.chainMods)(bpMods)) / 4096)));
     var attack;
     var attackSource = move.named('Foul Play') ? defender : attacker;
     var attackStat = move.category === 'Special' ? 'spa' : 'atk';
@@ -508,7 +460,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         attack = attackSource.stats[attackStat];
         desc.attackBoost = attackSource.boosts[attackStat];
     }
-    // unlike all other attack modifiers, Hustle gets applied directly
     if (attacker.hasAbility('Hustle') && move.category === 'Physical') {
         attack = (0, util_2.pokeRound)((attack * 3) / 2);
         desc.attackerAbility = attacker.ability;
@@ -543,13 +494,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         desc.attackerAbility = attacker.ability;
         desc.weather = field.weather;
     }
-    else if (field.attackerSide.isFlowerGift &&
-        field.hasWeather('Sun', 'Harsh Sunshine') &&
-        move.category === 'Physical') {
-        atMods.push(6144);
-        desc.weather = field.weather;
-        desc.isFlowerGiftAttacker = true;
-    }
     else if ((attacker.hasAbility('Defeatist') && attacker.curHP() <= attacker.maxHP() / 2) ||
         (attacker.hasAbility('Slow Start') && attacker.abilityOn && move.category === 'Physical')) {
         atMods.push(2048);
@@ -577,9 +521,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         atMods.push(6144);
         desc.attackerItem = attacker.item;
     }
-    attack = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((attack * (0, util_2.chainMods)(atMods, 410, 131072)) / 4096)));
-    // #endregion
-    // #region (Special) Defense
+    attack = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((attack * (0, util_2.chainMods)(atMods)) / 4096)));
     var defense;
     var defenseStat = move.overrideDefensiveStat || move.category === 'Physical' ? 'def' : 'spd';
     var hitsPhysical = defenseStat === 'def';
@@ -597,7 +539,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         defense = defender.stats[defenseStat];
         desc.defenseBoost = defender.boosts[defenseStat];
     }
-    // unlike all other defense modifiers, Sandstorm SpD boost gets applied directly
     if (field.hasWeather('Sand') && defender.hasType('Rock') && !hitsPhysical) {
         defense = (0, util_2.pokeRound)((defense * 3) / 2);
         desc.weather = field.weather;
@@ -614,13 +555,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         dfMods.push(6144);
         desc.defenderAbility = defender.ability;
         desc.weather = field.weather;
-    }
-    else if (field.defenderSide.isFlowerGift &&
-        field.hasWeather('Sun', 'Harsh Sunshine') &&
-        !hitsPhysical) {
-        dfMods.push(6144);
-        desc.weather = field.weather;
-        desc.isFlowerGiftDefender = true;
     }
     if (field.hasTerrain('Grassy') && defender.hasAbility('Grass Pelt') && hitsPhysical) {
         dfMods.push(6144);
@@ -642,9 +576,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         dfMods.push(8192);
         desc.defenderAbility = defender.ability;
     }
-    defense = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((defense * (0, util_2.chainMods)(dfMods, 410, 131072)) / 4096)));
-    // #endregion
-    // #region Damage
+    defense = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((defense * (0, util_2.chainMods)(dfMods)) / 4096)));
     var baseDamage = (0, util_2.getBaseDamage)(attacker.level, basePower, attack, defense);
     var isSpread = field.gameType !== 'Singles' &&
         ['allAdjacent', 'allAdjacentFoes'].includes(move.target);
@@ -664,12 +596,14 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         baseDamage = (0, util_2.pokeRound)((0, util_2.OF32)(baseDamage * 2048) / 4096);
         desc.weather = field.weather;
     }
+    else if ((field.hasWeather('Harsh Sunshine') && move.hasType('Water')) ||
+        (field.hasWeather('Heavy Rain') && move.hasType('Fire'))) {
+        return result;
+    }
     if (isCritical) {
         baseDamage = Math.floor((0, util_2.OF32)(baseDamage * (gen.num > 5 ? 1.5 : 2)));
         desc.isCritical = isCritical;
     }
-    // the random factor is applied between the crit mod and the stab mod, so don't apply anything
-    // below this until we're inside the loop
     var stabMod = 4096;
     if (attacker.hasType(move.type)) {
         if (attacker.hasAbility('Adaptability')) {
@@ -748,7 +682,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
         finalMods.push(1024);
         desc.isProtected = true;
     }
-    var finalMod = (0, util_2.chainMods)(finalMods, 41, 131072);
+    var finalMod = (0, util_2.chainMods)(finalMods);
     var childDamage;
     if (attacker.hasAbility('Parental Bond') && move.hits === 1 && !isSpread) {
         var child = attacker.clone();
@@ -790,7 +724,6 @@ function calculateBWXY(gen, attacker, defender, move, field) {
                     desc.attackerAbility = attacker.ability;
                 }
             }
-            // the Pokémon hits THEN the stat rises / lowers
             if (hasWhiteHerb && attacker.boosts[attackStat] < 0 && !usedWhiteHerb) {
                 dropCount += move.dropsStats * simpleMultiplier;
                 usedWhiteHerb = true;
@@ -804,7 +737,7 @@ function calculateBWXY(gen, attacker, defender, move, field) {
     desc.attackBoost =
         move.named('Foul Play') ? defender.boosts[attackStat] : attacker.boosts[attackStat];
     result.damage = childDamage ? [damage, childDamage] : damage;
-    // #endregion
     return result;
 }
 exports.calculateBWXY = calculateBWXY;
+//# sourceMappingURL=gen56.js.map

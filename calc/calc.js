@@ -22,3 +22,4 @@ function calculate(gen, attacker, defender, move, field) {
     return MECHANICS[gen.num](gen, attacker.clone(), defender.clone(), move.clone(), field ? field.clone() : new field_1.Field());
 }
 exports.calculate = calculate;
+//# sourceMappingURL=calc.js.map

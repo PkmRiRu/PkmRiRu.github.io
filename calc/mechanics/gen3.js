@@ -25,7 +25,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.calculateADV = void 0;
+
 var items_1 = require("../items");
 var result_1 = require("../result");
 var util_1 = require("./util");
@@ -112,11 +112,6 @@ function calculateADV(gen, attacker, defender, move, field) {
                 bp = move.bp * 2;
                 desc.moveBP = bp;
             }
-            break;
-        case 'Nature Power':
-            move.category = 'Physical';
-            bp = 60;
-            desc.moveName = 'Swift';
             break;
         default:
             bp = move.bp;
@@ -262,3 +257,4 @@ function calculateADV(gen, attacker, defender, move, field) {
     return result;
 }
 exports.calculateADV = calculateADV;
+//# sourceMappingURL=gen3.js.map

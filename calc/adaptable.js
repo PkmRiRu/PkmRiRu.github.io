@@ -25,3 +25,4 @@ var result_1 = require("./result");
 __createBinding(exports, result_1, "Result");
 var stats_1 = require("./stats");
 __createBinding(exports, stats_1, "Stats");
+//# sourceMappingURL=adaptable.js.map

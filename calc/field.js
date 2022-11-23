@@ -16,8 +16,8 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 exports.__esModule = true;
-exports.Side = exports.Field = void 0;
-var Field = /** @class */ (function () {
+
+var Field = (function () {
     function Field(field) {
         if (field === void 0) { field = {}; }
         this.gameType = field.gameType || 'Singles';
@@ -69,7 +69,7 @@ var Field = /** @class */ (function () {
     return Field;
 }());
 exports.Field = Field;
-var Side = /** @class */ (function () {
+var Side = (function () {
     function Side(side) {
         if (side === void 0) { side = {}; }
         this.spikes = side.spikes || 0;
@@ -86,7 +86,6 @@ var Side = /** @class */ (function () {
         this.isForesight = !!side.isForesight;
         this.isTailwind = !!side.isTailwind;
         this.isHelpingHand = !!side.isHelpingHand;
-        this.isFlowerGift = !!side.isFlowerGift;
         this.isFriendGuard = !!side.isFriendGuard;
         this.isAuroraVeil = !!side.isAuroraVeil;
         this.isBattery = !!side.isBattery;
@@ -99,3 +98,4 @@ var Side = /** @class */ (function () {
     return Side;
 }());
 exports.Side = Side;
+//# sourceMappingURL=field.js.map

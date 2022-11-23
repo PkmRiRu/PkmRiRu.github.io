@@ -11,3 +11,4 @@ describe('Move', function () {
         expect(clone.bp).toBe(185);
     });
 });
+//# sourceMappingURL=move.test.js.map

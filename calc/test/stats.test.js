@@ -30,9 +30,7 @@ describe('Stats', function () {
                 expect(val).toBe(gen < 3 ? RBY[stat] : ADV[stat]);
             }
         }
-        // Shedinja
         expect(stats_1.Stats.calcStat(data_1.Generations.get(8), 'hp', 1, 31, 252, 100, 'Jolly')).toBe(1);
-        // no nature
         expect(stats_1.Stats.calcStat(data_1.Generations.get(8), 'atk', 100, 31, 252, 100)).toBe(299);
     });
     test('dvs', function () {
@@ -59,7 +57,8 @@ describe('Stats', function () {
         })).toBe(13);
     });
     test('gen 2 modifications', function () {
-        expect((0, util_1.getModifiedStat)(158, -1, data_1.Generations.get(2))).toBe(104); // Snorlax after Curse
-        expect((0, util_1.getModifiedStat)(238, -1, data_1.Generations.get(2))).toBe(157); // Skarmory after Curse
+        expect((0, util_1.getModifiedStat)(158, -1, data_1.Generations.get(2))).toBe(104);
+        expect((0, util_1.getModifiedStat)(238, -1, data_1.Generations.get(2))).toBe(157);
     });
 });
+//# sourceMappingURL=stats.test.js.map

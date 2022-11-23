@@ -5,7 +5,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -43,7 +43,7 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 exports.__esModule = true;
-exports.Natures = exports.NATURES = void 0;
+
 var util_1 = require("../util");
 exports.NATURES = {
     Adamant: ['atk', 'spa'],
@@ -72,43 +72,40 @@ exports.NATURES = {
     Serious: ['spe', 'spe'],
     Timid: ['spe', 'atk']
 };
-var Natures = /** @class */ (function () {
+var Natures = (function () {
     function Natures() {
     }
     Natures.prototype.get = function (id) {
         return NATURES_BY_ID[id];
     };
     Natures.prototype[Symbol.iterator] = function () {
-        var _a, _b, _c, _i, id;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _a, _b, _i, id;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _a = NATURES_BY_ID;
-                    _b = [];
-                    for (_c in _a)
-                        _b.push(_c);
+                    _a = [];
+                    for (_b in NATURES_BY_ID)
+                        _a.push(_b);
                     _i = 0;
-                    _d.label = 1;
+                    _c.label = 1;
                 case 1:
-                    if (!(_i < _b.length)) return [3 /*break*/, 4];
-                    _c = _b[_i];
-                    if (!(_c in _a)) return [3 /*break*/, 3];
-                    id = _c;
-                    return [4 /*yield*/, this.get(id)];
+                    if (!(_i < _a.length)) return [3, 4];
+                    id = _a[_i];
+                    return [4, this.get(id)];
                 case 2:
-                    _d.sent();
-                    _d.label = 3;
+                    _c.sent();
+                    _c.label = 3;
                 case 3:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3, 1];
+                case 4: return [2];
             }
         });
     };
     return Natures;
 }());
 exports.Natures = Natures;
-var Nature = /** @class */ (function () {
+var Nature = (function () {
     function Nature(name, _a) {
         var _b = __read(_a, 2), plus = _b[0], minus = _b[1];
         this.kind = 'Nature';
@@ -124,3 +121,4 @@ for (var nature in exports.NATURES) {
     var n = new Nature(nature, exports.NATURES[nature]);
     NATURES_BY_ID[n.id] = n;
 }
+//# sourceMappingURL=natures.js.map

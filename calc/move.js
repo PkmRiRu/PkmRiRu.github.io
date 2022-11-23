@@ -1,9 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.getMaxMoveName = exports.getZMoveName = exports.Move = void 0;
+
 var util_1 = require("./util");
 var SPECIAL = ['Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Psychic', 'Dark', 'Dragon'];
-var Move = /** @class */ (function () {
+var Move = (function () {
     function Move(gen, name, options) {
         if (options === void 0) { options = {}; }
         var _a, _b;
@@ -11,7 +11,6 @@ var Move = /** @class */ (function () {
         this.originalName = name;
         var data = (0, util_1.extend)(true, { name: name }, gen.moves.get((0, util_1.toID)(name)), options.overrides);
         this.hits = 1;
-        // If isZMove but there isn't a corresponding z-move, use the original move
         if (options.useMax && data.maxMove) {
             var maxMoveName_1 = getMaxMoveName(data.type, options.species, !!(data.category === 'Status'), options.ability);
             var maxMove_1 = gen.moves.get((0, util_1.toID)(maxMoveName_1));
@@ -19,8 +18,6 @@ var Move = /** @class */ (function () {
                 if (['G-Max Drum Solo', 'G-Max Fire Ball', 'G-Max Hydrosnipe'].includes(maxMoveName_1)) {
                     return 160;
                 }
-                // TODO: checking basePower === 10 is fragile (what if the maxMove's basePower is
-                // overridden?) and also fails for Max Flare, which is strangely 100 BP in the game data
                 if (maxMove_1.basePower === 10 || maxMoveName_1 === 'Max Flare') {
                     return data.maxMove.basePower;
                 }
@@ -66,7 +63,6 @@ var Move = /** @class */ (function () {
         this.overrides = options.overrides;
         this.species = options.species;
         this.bp = data.basePower;
-        // These moves have a type, but the damage they deal is typeless so we override it
         var typelessDamage = (gen.num >= 2 && data.id === 'struggle') ||
             (gen.num <= 4 && ['futuresight', 'doomdesire'].includes(data.id));
         this.type = typelessDamage ? '???' : data.type;
@@ -78,7 +74,7 @@ var Move = /** @class */ (function () {
         }
         this.timesUsed = (this.dropsStats && options.timesUsed) || 1;
         this.secondaries = data.secondaries;
-         this.target = data.target || 'any';
+        this.target = data.target || 'any';
         this.recoil = data.recoil;
         this.hasCrashDamage = !!data.hasCrashDamage;
         this.mindBlownRecoil = !!data.mindBlownRecoil;
@@ -97,9 +93,13 @@ var Move = /** @class */ (function () {
         this.isZ = !!data.isZ;
         this.isMax = !!data.isMax;
         if (!this.bp) {
-            // Assume max happiness for these moves because the calc doesn't support happiness
             if (['return', 'frustration', 'pikapapow', 'veeveevolley'].includes(data.id)) {
                 this.bp = 102;
+            }
+            else if (data.id === 'naturepower') {
+                this.bp = 80;
+                if (gen.num >= 5)
+                    this.secondaries = true;
             }
         }
     }
@@ -316,3 +316,4 @@ var MAXMOVES_TYPING = {
     Steel: 'Steelspike',
     Water: 'Geyser'
 };
+//# sourceMappingURL=move.js.map

@@ -36,7 +36,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.OF32 = exports.OF16 = exports.pokeRound = exports.handleFixedDamageMoves = exports.getEVDescriptionText = exports.countBoosts = exports.getWeightFactor = exports.getShellSideArmCategory = exports.getFinalDamage = exports.getBaseDamage = exports.chainMods = exports.checkMultihitBoost = exports.checkSeedBoost = exports.checkInfiltrator = exports.checkDauntlessShield = exports.checkIntrepidSword = exports.checkDownload = exports.checkIntimidate = exports.checkWonderRoom = exports.checkItem = exports.checkForecast = exports.checkAirLock = exports.getMoveEffectiveness = exports.getFinalSpeed = exports.computeFinalStats = exports.getModifiedStat = exports.isGrounded = void 0;
+
 var util_1 = require("../util");
 var stats_1 = require("../stats");
 var EV_ITEMS = [
@@ -56,10 +56,10 @@ function isGrounded(pokemon, field) {
 }
 exports.isGrounded = isGrounded;
 function getModifiedStat(stat, mod, gen) {
+    var boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
     if (gen && gen.num < 3) {
         if (mod >= 0) {
-            var pastGenBoostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
-            stat = Math.floor(stat * pastGenBoostTable[mod]);
+            stat = Math.floor(stat * boostTable[mod]);
         }
         else {
             var numerators = [100, 66, 50, 40, 33, 28, 25];
@@ -67,25 +67,12 @@ function getModifiedStat(stat, mod, gen) {
         }
         return Math.min(999, Math.max(1, stat));
     }
-    var numerator = 0;
-    var denominator = 1;
-    var modernGenBoostTable = [
-        [2, 8],
-        [2, 7],
-        [2, 6],
-        [2, 5],
-        [2, 4],
-        [2, 3],
-        [2, 2],
-        [3, 2],
-        [4, 2],
-        [5, 2],
-        [6, 2],
-        [7, 2],
-        [8, 2],
-    ];
-    stat = OF16(stat * modernGenBoostTable[6 + mod][numerator]);
-    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator]);
+    if (mod >= 0) {
+        stat = Math.floor(stat * boostTable[mod]);
+    }
+    else {
+        stat = Math.floor(stat / boostTable[-mod]);
+    }
     return stat;
 }
 exports.getModifiedStat = getModifiedStat;
@@ -132,40 +119,38 @@ function getFinalSpeed(gen, pokemon, field, side) {
     var weather = field.weather || '';
     var terrain = field.terrain;
     var speed = getModifiedStat(pokemon.rawStats.spe, pokemon.boosts.spe, gen);
-    var speedMods = [];
-    if (side.isTailwind)
-        speedMods.push(8192);
-    // Pledge swamp would get applied here when implemented
-    // speedMods.push(1024);
+    var mods = 1;
+    if (pokemon.hasItem('Choice Scarf')) {
+        mods *= 1.5;
+    }
+    else if (pokemon.hasItem.apply(pokemon, __spreadArray(['Iron Ball'], __read(EV_ITEMS), false))) {
+        mods *= 0.5;
+    }
+    else if (pokemon.hasItem('Quick Powder') && pokemon.named('Ditto')) {
+        mods *= 2;
+    }
     if ((pokemon.hasAbility('Unburden') && pokemon.abilityOn) ||
         (pokemon.hasAbility('Chlorophyll') && weather.includes('Sun')) ||
         (pokemon.hasAbility('Sand Rush') && weather === 'Sand') ||
         (pokemon.hasAbility('Swift Swim') && weather.includes('Rain')) ||
         (pokemon.hasAbility('Slush Rush') && weather === 'Hail') ||
         (pokemon.hasAbility('Surge Surfer') && terrain === 'Electric')) {
-        speedMods.push(8192);
+        speed *= 2;
     }
     else if (pokemon.hasAbility('Quick Feet') && pokemon.status) {
-        speedMods.push(6144);
+        mods *= 1.5;
     }
     else if (pokemon.hasAbility('Slow Start') && pokemon.abilityOn) {
-        speedMods.push(2048);
+        mods *= 0.5;
     }
-    if (pokemon.hasItem('Choice Scarf')) {
-        speedMods.push(6144);
-    }
-    else if (pokemon.hasItem.apply(pokemon, __spreadArray(['Iron Ball'], __read(EV_ITEMS), false))) {
-        speedMods.push(2048);
-    }
-    else if (pokemon.hasItem('Quick Powder') && pokemon.named('Ditto')) {
-        speedMods.push(8192);
-    }
-    speed = OF32(pokeRound((speed * chainMods(speedMods, 410, 131172)) / 4096));
+    if (side.isTailwind)
+        mods *= 2;
+    speed = pokeRound(speed * mods);
     if (pokemon.hasStatus('par') && !pokemon.hasAbility('Quick Feet')) {
-        speed = Math.floor(OF32(speed * (gen.num < 7 ? 25 : 50)) / 100);
+        speed = Math.floor(speed * (gen.num < 7 ? 0.25 : 0.5));
     }
     speed = Math.min(gen.num <= 2 ? 999 : 10000, speed);
-    return Math.max(0, speed);
+    return Math.max(1, speed);
 }
 exports.getFinalSpeed = getFinalSpeed;
 function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity) {
@@ -229,7 +214,6 @@ function checkWonderRoom(pokemon, wonderRoomActive) {
 exports.checkWonderRoom = checkWonderRoom;
 function checkIntimidate(gen, source, target) {
     var blocked = target.hasAbility('Clear Body', 'White Smoke', 'Hyper Cutter', 'Full Metal Body') ||
-        // More abilities now block Intimidate in Gen 8 (DaWoblefet, Cloudy Mistral)
         (gen.num === 8 && target.hasAbility('Inner Focus', 'Own Tempo', 'Oblivious', 'Scrappy'));
     if (source.hasAbility('Intimidate') && source.abilityOn && !blocked) {
         if (target.hasAbility('Contrary', 'Defiant')) {
@@ -252,7 +236,6 @@ function checkDownload(source, target, wonderRoomActive) {
     if (source.hasAbility('Download')) {
         var def = target.stats.def;
         var spd = target.stats.spd;
-        // We swap the defense stats again here since Download ignores Wonder Room
         if (wonderRoomActive)
             _a = __read([spd, def], 2), def = _a[0], spd = _a[1];
         if (spd <= def) {
@@ -304,13 +287,9 @@ function checkSeedBoost(pokemon, field) {
     }
 }
 exports.checkSeedBoost = checkSeedBoost;
-// NOTE: We only need to handle guaranteed, damage-relevant boosts here for multi-hit accuracy
 function checkMultihitBoost(gen, attacker, defender, move, field, desc, usedWhiteHerb) {
     if (usedWhiteHerb === void 0) { usedWhiteHerb = false; }
-    // NOTE: attacker.ability must be Parental Bond for these moves to be multi-hit
     if (move.named('Gyro Ball', 'Electro Ball') && defender.hasAbility('Gooey', 'Tangling Hair')) {
-        // Gyro Ball (etc) makes contact into Gooey (etc) whenever its inflicting multiple hits because
-        // this can only happen if the attacker ability is Parental Bond (and thus can't be Long Reach)
         if (attacker.hasItem('White Herb') && !usedWhiteHerb) {
             desc.attackerItem = attacker.item;
             usedWhiteHerb = true;
@@ -320,8 +299,6 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, usedWhit
             attacker.stats.spe = getFinalSpeed(gen, attacker, field, field.attackerSide);
             desc.defenderAbility = defender.ability;
         }
-        // BUG: Technically Sitrus/Figy Berry + Unburden can also affect the defender's speed, but
-        // this goes far beyond what we care to implement (especially once Gluttony is considered) now
     }
     else if (move.named('Power-Up Punch')) {
         attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6);
@@ -361,7 +338,6 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, usedWhit
             desc.attackerAbility = attacker.ability;
         }
         else {
-            // No move with dropsStats has fancy logic regarding category here
             var stat = move.category === 'Special' ? 'spa' : 'atk';
             var boosts = attacker.boosts[stat];
             if (attacker.hasAbility('Contrary')) {
@@ -385,7 +361,7 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, usedWhit
     return usedWhiteHerb;
 }
 exports.checkMultihitBoost = checkMultihitBoost;
-function chainMods(mods, lowerBound, upperBound) {
+function chainMods(mods) {
     var e_3, _a;
     var M = 4096;
     try {
@@ -403,7 +379,7 @@ function chainMods(mods, lowerBound, upperBound) {
         }
         finally { if (e_3) throw e_3.error; }
     }
-    return Math.max(Math.min(M, upperBound), lowerBound);
+    return M;
 }
 exports.chainMods = chainMods;
 function getBaseDamage(level, basePower, attack, defense) {
@@ -412,8 +388,6 @@ function getBaseDamage(level, basePower, attack, defense) {
 exports.getBaseDamage = getBaseDamage;
 function getFinalDamage(baseAmount, i, effectiveness, isBurned, stabMod, finalMod, protect) {
     var damageAmount = Math.floor(OF32(baseAmount * (85 + i)) / 100);
-    // If the stabMod would not accomplish anything we avoid applying it because it could cause
-    // us to calculate damage overflow incorrectly (DaWoblefet)
     if (stabMod !== 4096)
         damageAmount = OF32(damageAmount * stabMod) / 4096;
     damageAmount = Math.floor(OF32(pokeRound(damageAmount) * effectiveness));
@@ -424,21 +398,6 @@ function getFinalDamage(baseAmount, i, effectiveness, isBurned, stabMod, finalMo
     return OF16(pokeRound(Math.max(1, OF32(damageAmount * finalMod) / 4096)));
 }
 exports.getFinalDamage = getFinalDamage;
-/**
- * Determines which move category Shell Side Arm should behave as.
- *
- * A simplified formula can be used here compared to what the research
- * suggests as we do not want to implement the random tiebreak element of
- * move - instead we simply default to 'Special' and allow the user to override
- * this by manually adjusting the move's category.
- *
- * See also:
- * {@link https://github.com/smogon/pokemon-showdown/commit/65d2bb5d}
- *
- * @param source Attacking pokemon (after stat modifications)
- * @param target Target pokemon (after stat modifications)
- * @returns 'Physical' | 'Special'
- */
 function getShellSideArmCategory(source, target) {
     var physicalDamage = source.stats.atk / target.stats.def;
     var specialDamage = source.stats.spa / target.stats.spd;
@@ -459,7 +418,6 @@ function countBoosts(gen, boosts) {
     try {
         for (var STATS_1 = __values(STATS), STATS_1_1 = STATS_1.next(); !STATS_1_1.done; STATS_1_1 = STATS_1.next()) {
             var stat = STATS_1_1.value;
-            // Only positive boosts are counted
             var boost = boosts[stat];
             if (boost && boost > 0)
                 sum += boost;
@@ -498,18 +456,16 @@ function handleFixedDamageMoves(attacker, move) {
     return 0;
 }
 exports.handleFixedDamageMoves = handleFixedDamageMoves;
-// Game Freak rounds DOWN on .5
 function pokeRound(num) {
     return num % 1 > 0.5 ? Math.ceil(num) : Math.floor(num);
 }
 exports.pokeRound = pokeRound;
-// 16-bit Overflow
 function OF16(n) {
     return n > 65535 ? n % 65536 : n;
 }
 exports.OF16 = OF16;
-// 32-bit Overflow
 function OF32(n) {
     return n > 4294967295 ? n % 4294967296 : n;
 }
 exports.OF32 = OF32;
+//# sourceMappingURL=util.js.map
