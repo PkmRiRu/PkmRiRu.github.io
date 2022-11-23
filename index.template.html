@@ -49,9 +49,9 @@
             <input class="gen visually-hidden" type="radio" name="gen" value="3" id="gen3" /><label class="btn btn-small btn-mid" for="gen3">ADV</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="4" id="gen4" /><label class="btn btn-small btn-mid" for="gen4">DPP</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="5" id="gen5" /><label class="btn btn-small btn-mid" for="gen5">B/W</label>
-            <input class="gen visually-hidden" type="radio" name="gen" value="6" id="gen6" checked="checked" /><label class="btn btn-small btn-mid" for="gen6">X/Y</label>
+            <input class="gen visually-hidden" type="radio" name="gen" value="6" id="gen6" /><label class="btn btn-small btn-mid" for="gen6">X/Y</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="7" id="gen7" /><label class="btn btn-small btn-mid" for="gen7">S/M</label>
-            <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" /><label class="btn btn-small btn-right" for="gen8">S/S</label>
+            <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" checked="checked" /><label class="btn btn-small btn-right" for="gen8">S/S</label>
         </span>
         <span class="notationSelection" aria-labelledby="selectNotationInstruction" role="radiogroup" title="Select the output notation.">
             <span class="visually-hidden" id="selectNotationInstruction">Select the output notation.</span>
@@ -61,6 +61,9 @@
         <span class="modeSelection" aria-labelledby="selectModeInstruction" role="radiogroup" title="Select the calculator's mode of function.">
             <span class="visually-hidden" id="selectModeInstruction">Select the calculator's mode of function.</span>
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" checked="checked" /><label class="btn btn-left" for="one-vs-one">One vs One</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-all" /><label class="btn btn-mid" for="one-vs-all">One vs All</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="all-vs-one" /><label class="btn btn-mid" for="all-vs-one">All vs One</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="randoms" /><label class="btn btn-right" for="randoms">Random Battles</label>
         </span>
     </div>
     <hr />
@@ -852,6 +855,17 @@
                             <td><div class="right" title="Has this Pok&eacute;mon's speed been boosted by Tailwind?">
                                 <input aria-describedby="selectTailwindInstruction" class="visually-hidden calc-trigger" type="checkbox" id="tailwindR" />
                                 <label class="btn btn-xxwide" for="tailwindR">Tailwind</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g4 g5 g6 g7 g8">
+                            <td><div class="left" title="Is the Pok&eacute;mon affected by an ally's Flower Gift?">
+                                <div hidden id="selectFlowerGiftInstruction">Is the Pok&eacute;mon affected by an ally's Flower Gift?</div>
+                                <input aria-describedby="selectFlowerGiftInstruction" class="visually-hidden calc-trigger" type="checkbox" id="flowerGiftL" />
+                                <label class="btn btn-xxwide" for="flowerGiftL">Flower Gift</label>
+                            </div></td>
+                            <td><div class="right" title="Is the Pok&eacute;mon affected by an ally's Flower Gift?">
+                                <input aria-describedby="selectFlowerGiftInstruction" class="visually-hidden calc-trigger" type="checkbox" id="flowerGiftR" />
+                                <label class="btn btn-xxwide" for="flowerGiftR">Flower Gift</label>
                             </div></td>
                         </tr>
                         <tr class="gen-specific g5 g6 g7 g8">
