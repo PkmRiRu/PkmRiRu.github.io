@@ -668,6 +668,9 @@ function buildDescription(description, attacker, defender) {
     if (description.isHelpingHand) {
         output += 'Helping Hand ';
     }
+    if (description.isFlowerGiftAttacker) {
+        output += ' with an ally\'s Flower Gift ';
+    }
     if (description.isBattery) {
         output += ' Battery boosted ';
     }
@@ -725,6 +728,9 @@ function buildDescription(description, attacker, defender) {
     }
     else if (description.isLightScreen) {
         output += ' through Light Screen';
+    }
+    if (description.isFlowerGiftDefender) {
+        output += ' with an ally\'s Flower Gift';
     }
     if (description.isFriendGuard) {
         output += ' with an ally\'s Friend Guard';

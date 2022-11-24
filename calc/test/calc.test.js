@@ -56,7 +56,7 @@ describe('calc', function () {
                 expect(result.desc()).toBe('0 SpA Meadow Plate Arceus Judgment vs. 0 HP / 0 SpD Blastoise: 194-230 (64.8 - 76.9%) -- guaranteed 2HKO');
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Night Shade / Seismic Toss (gen ".concat(gen, ")"), function () {
                 var e_1, _a;
@@ -89,13 +89,13 @@ describe('calc', function () {
                 4: { range: [43, 52], result: '(59.4 - 71.8%) -- approx. 2HKO' }
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Immunity (gen ".concat(gen, ")"), function () {
                 expect(calculate(Pokemon('Snorlax'), Pokemon('Gengar'), Move('Hyper Beam')).damage).toBe(0);
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Non-damaging (gen ".concat(gen, ")"), function () {
                 var result = calculate(Pokemon('Snorlax'), Pokemon('Vulpix'), Move('Barrier'));
@@ -103,7 +103,7 @@ describe('calc', function () {
                 expect(result.desc()).toBe('Snorlax Barrier vs. Vulpix: 0-0 (0 - 0%)');
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
             test("Protect (gen ".concat(gen, ")"), function () {
                 var field = Field({ defenderSide: { isProtected: true } });
@@ -112,7 +112,7 @@ describe('calc', function () {
                 expect(calculate(snorlax, chansey, Move('Hyper Beam'), field).damage).toBe(0);
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
             test("Critical hits ignore attack decreases (gen ".concat(gen, ")"), function () {
                 var field = Field({ defenderSide: { isReflect: true } });
@@ -154,7 +154,7 @@ describe('calc', function () {
                 }
             });
         });
-        (0, helper_1.inGens)(1, 8, function (_a) {
+        (0, helper_1.inGens)(1, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Struggle vs. Ghost (gen ".concat(gen, ")"), function () {
                 var result = calculate(Pokemon('Mew'), Pokemon('Gengar'), Move('Struggle'));
@@ -166,7 +166,7 @@ describe('calc', function () {
                 }
             });
         });
-        (0, helper_1.inGens)(3, 8, function (_a) {
+        (0, helper_1.inGens)(3, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
             test("Weather Ball should change type depending on the weather (gen ".concat(gen, ")"), function () {
                 var e_2, _a;
@@ -237,7 +237,7 @@ describe('calc', function () {
                 }
             });
         });
-        (0, helper_1.inGens)(6, 8, function (_a) {
+        (0, helper_1.inGens)(6, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Thousand Arrows and Ring Target Should negate damage nullfiers (gen ".concat(gen, ")"), function () {
                 var result = calculate(Pokemon('Zygarde'), Pokemon('Swellow'), Move('Thousand Arrows'));
@@ -245,7 +245,7 @@ describe('calc', function () {
                 expect(result.desc()).toBe('0 Atk Zygarde Thousand Arrows vs. 0 HP / 0 Def Swellow: 147-174 (56.3 - 66.6%) -- guaranteed 2HKO');
             });
         });
-        (0, helper_1.inGens)(4, 8, function (_a) {
+        (0, helper_1.inGens)(4, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             var zapdos = Pokemon('Zapdos', { item: 'Iron Ball' });
             if (gen === 4) {
@@ -275,7 +275,7 @@ describe('calc', function () {
                 expect(munchlax.curHP()).toBe(822);
             });
         });
-        (0, helper_1.inGens)(7, 8, function (_a) {
+        (0, helper_1.inGens)(7, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move, Field = _a.Field;
             test("Psychic Terrain (gen ".concat(gen, ")"), function () {
                 var field = Field({ terrain: 'Psychic' });
@@ -307,7 +307,7 @@ describe('calc', function () {
                 expect(result.range()).toEqual([0, 0]);
             });
         });
-        (0, helper_1.inGens)(6, 8, function (_a) {
+        (0, helper_1.inGens)(6, 9, function (_a) {
             var gen = _a.gen, calculate = _a.calculate, Pokemon = _a.Pokemon, Move = _a.Move;
             test("Parental Bond (gen ".concat(gen, ")"), function () {
                 var result = calculate(Pokemon('Kangaskhan-Mega', { evs: { atk: 152 } }), Pokemon('Amoonguss', { nature: 'Bold', evs: { hp: 252, def: 152 } }), Move('Frustration'));

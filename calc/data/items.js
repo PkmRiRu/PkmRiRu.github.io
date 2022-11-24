@@ -5,7 +5,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -513,6 +513,15 @@ var SS = SM.concat([
     'Tart Apple',
     'Throat Spray',
 ]);
+var SV = SM.concat([
+    'Ability Shield',
+    'Booster Energy',
+    'Clear Amulet',
+    'Covert Cloak',
+    'Loaded Dice',
+    'Mirror Herb',
+    'Punching Glove',
+]);
 for (var i = 0; i < 100; i++) {
     SS.push("TR".concat(i < 10 ? "0".concat(i) : i));
 }
@@ -597,7 +606,7 @@ var BERRIES = {
     'Wiki Berry': { t: 'Rock', p: 80 },
     'Yache Berry': { t: 'Ice', p: 80 }
 };
-exports.ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS];
+exports.ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 var Items = (function () {
     function Items(gen) {
         this.gen = gen;
@@ -606,22 +615,25 @@ var Items = (function () {
         return ITEMS_BY_ID[this.gen][id];
     };
     Items.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in ITEMS_BY_ID[this.gen])
-                        _a.push(_b);
+                    _a = ITEMS_BY_ID[this.gen];
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 4];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 4];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 3];
+                    id = _c;
                     return [4, this.get(id)];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3:
                     _i++;
                     return [3, 1];

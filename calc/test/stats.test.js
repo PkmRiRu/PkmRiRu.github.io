@@ -23,7 +23,7 @@ describe('Stats', function () {
             spe: 298
         };
         var ADV = { hp: 404, atk: 328, def: 299, spa: 269, spd: 299, spe: 299 };
-        for (var gen = 1; gen <= 8; gen++) {
+        for (var gen = 1; gen <= 9; gen++) {
             for (var s in ADV) {
                 var stat = s;
                 var val = stats_1.Stats.calcStat(data_1.Generations.get(gen), stat, 100, 31, 252, 100, 'Adamant');

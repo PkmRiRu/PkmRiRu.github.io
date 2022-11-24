@@ -194,6 +194,12 @@ function calculateDPP(gen, attacker, defender, move, field) {
                 desc.moveBP = basePower;
             }
             break;
+        case 'Nature Power':
+            move.category = 'Special';
+            move.secondaries = true;
+            basePower = 80;
+            desc.moveName = 'Tri Attack';
+            break;
         case 'Crush Grip':
         case 'Wring Out':
             basePower = Math.floor((defender.curHP() * 120) / defender.maxHP()) + 1;
@@ -282,6 +288,11 @@ function calculateDPP(gen, attacker, defender, move, field) {
         desc.attackerAbility = attacker.ability;
         desc.weather = field.weather;
     }
+    else if (field.attackerSide.isFlowerGift && field.hasWeather('Sun') && isPhysical) {
+        attack = Math.floor(attack * 1.5);
+        desc.weather = field.weather;
+        desc.isFlowerGiftAttacker = true;
+    }
     else if ((isPhysical &&
         (attacker.hasAbility('Hustle') || (attacker.hasAbility('Guts') && attacker.status)) ||
         (!isPhysical && attacker.abilityOn && attacker.hasAbility('Plus', 'Minus')))) {
@@ -332,6 +343,11 @@ function calculateDPP(gen, attacker, defender, move, field) {
         defense = Math.floor(defense * 1.5);
         desc.defenderAbility = defender.ability;
         desc.weather = field.weather;
+    }
+    else if (field.defenderSide.isFlowerGift && field.hasWeather('Sun') && !isPhysical) {
+        defense = Math.floor(defense * 1.5);
+        desc.weather = field.weather;
+        desc.isFlowerGiftDefender = true;
     }
     if (defender.hasItem('Soul Dew') && defender.named('Latios', 'Latias') && !isPhysical) {
         defense = Math.floor(defense * 1.5);

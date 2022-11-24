@@ -16,7 +16,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -105,24 +105,27 @@ var Abilities = (function () {
         return exists(ability, this.dex.gen) ? new Ability(ability) : undefined;
     };
     Abilities.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id, a;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id, a;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in this.dex.data.Abilities)
-                        _a.push(_b);
+                    _a = this.dex.data.Abilities;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 4];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 4];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 3];
+                    id = _c;
                     a = this.get(id);
                     if (!a) return [3, 3];
                     return [4, a];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3:
                     _i++;
                     return [3, 1];
@@ -154,24 +157,27 @@ var Items = (function () {
         return exists(item, this.dex.gen) ? new Item(item, this.dex.gen) : undefined;
     };
     Items.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id, i;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id, i;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in this.dex.data.Items)
-                        _a.push(_b);
+                    _a = this.dex.data.Items;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 4];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 4];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 3];
+                    id = _c;
                     i = this.get(id);
                     if (!i) return [3, 3];
                     return [4, i];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3:
                     _i++;
                     return [3, 1];
@@ -204,26 +210,29 @@ var Moves = (function () {
         return exists(move, this.dex.gen) ? new Move(move, this.dex) : undefined;
     };
     Moves.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id, m;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id, m;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0: return [4, NoMove(this.dex)];
                 case 1:
-                    _c.sent();
-                    _a = [];
-                    for (_b in this.dex.data.Moves)
-                        _a.push(_b);
+                    _d.sent();
+                    _a = this.dex.data.Moves;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 2;
+                    _d.label = 2;
                 case 2:
-                    if (!(_i < _a.length)) return [3, 5];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 5];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 4];
+                    id = _c;
                     m = this.get(id);
                     if (!m) return [3, 4];
                     return [4, m];
                 case 3:
-                    _c.sent();
-                    _c.label = 4;
+                    _d.sent();
+                    _d.label = 4;
                 case 4:
                     _i++;
                     return [3, 2];
@@ -327,29 +336,32 @@ var Species = (function () {
         return exists(species, this.dex.gen) ? new Specie(species, this.dex) : undefined;
     };
     Species.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id, s;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id, s;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in this.dex.data.Species)
-                        _a.push(_b);
+                    _a = this.dex.data.Species;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 6];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 6];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 5];
+                    id = _c;
                     s = this.get(id);
                     if (!s) return [3, 5];
                     if (!(id === 'aegislash')) return [3, 3];
                     return [4, AegislashBoth(this.dex)];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3: return [4, s];
                 case 4:
-                    _c.sent();
-                    _c.label = 5;
+                    _d.sent();
+                    _d.label = 5;
                 case 5:
                     _i++;
                     return [3, 1];
@@ -473,22 +485,25 @@ var Types = (function () {
         return this.byID[toID(name)];
     };
     Types.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in this.byID)
-                        _a.push(_b);
+                    _a = this.byID;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 4];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 4];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 3];
+                    id = _c;
                     return [4, this.byID[id]];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3:
                     _i++;
                     return [3, 1];
@@ -508,24 +523,27 @@ var Natures = (function () {
         return nature.exists ? new Nature(nature) : undefined;
     };
     Natures.prototype[Symbol.iterator] = function () {
-        var _a, _b, _i, id, n;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a, _b, _c, _i, id, n;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    _a = [];
-                    for (_b in this.dex.data.Natures)
-                        _a.push(_b);
+                    _a = this.dex.data.Natures;
+                    _b = [];
+                    for (_c in _a)
+                        _b.push(_c);
                     _i = 0;
-                    _c.label = 1;
+                    _d.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3, 4];
-                    id = _a[_i];
+                    if (!(_i < _b.length)) return [3, 4];
+                    _c = _b[_i];
+                    if (!(_c in _a)) return [3, 3];
+                    id = _c;
                     n = this.get(id);
                     if (!n) return [3, 3];
                     return [4, n];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    _d.sent();
+                    _d.label = 3;
                 case 3:
                     _i++;
                     return [3, 1];

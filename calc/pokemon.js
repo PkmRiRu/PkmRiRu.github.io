@@ -167,7 +167,7 @@ var Pokemon = (function () {
     };
     Pokemon.getForme = function (gen, speciesName, item, moveName) {
         var species = gen.species.get((0, util_1.toID)(speciesName));
-        if (!species || !species.otherFormes) {
+        if (!(species === null || species === void 0 ? void 0 : species.otherFormes)) {
             return speciesName;
         }
         var i = 0;

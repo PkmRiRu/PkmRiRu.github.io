@@ -86,6 +86,7 @@ var Side = (function () {
         this.isForesight = !!side.isForesight;
         this.isTailwind = !!side.isTailwind;
         this.isHelpingHand = !!side.isHelpingHand;
+        this.isFlowerGift = !!side.isFlowerGift;
         this.isFriendGuard = !!side.isFriendGuard;
         this.isAuroraVeil = !!side.isAuroraVeil;
         this.isBattery = !!side.isBattery;

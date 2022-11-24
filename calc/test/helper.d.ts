@@ -46,7 +46,7 @@ declare global {
         }
     }
 }
-declare type ResultDiff = Partial<Record<I.GenerationNum, Partial<ResultBreakdown>>>;
+type ResultDiff = Partial<Record<I.GenerationNum, Partial<ResultBreakdown>>>;
 interface ResultBreakdown {
     range: [number, number];
     desc: string;

@@ -1,75 +1,6 @@
+
 /* AUTOMATICALLY GENERATED FROM @smogon/sets, DO NOT EDIT! */
-var SETDEX_XY = {
-				"Absol-Mega":{
-					"Sidney":{
-						"level": 72,
-						"ability":"Magic Bounce",
-						"item":"Absolite",
-						"moves":["Sucker Punch","Play Rough","Fire Blast","Iron Tail"]}},
-				"Aerodactyl":{
-					"Steven":{
-						"level": 77,
-						"ability":"Rock Head",
-						"item":"Life Orb",
-						"moves":["Stone Edge","Aqua Tail","Earthquake","Brave Bird"]}},
-				"Aggron":{
-					"Steven":{
-						"level": 77,
-						"ability":"Rock Head",
-						"item":"Focus Sash",
-						"moves":["Head Smash","Heavy Slam","Earthquake","Thunder Wave"]}},
-				"Altaria-Mega":{
-					"Winona":{
-						"level": 50,
-						"ability":"Pixilate",
-						"item":"Altarianite",
-						"moves":["Dragon Dance","Body Slam","Earthquake","Roost"]}},
-				"Ambipom":{
-					"Norman":{
-						"level": 40,
-						"ability":"Technician",
-						"item":"Normal Gem",
-						"moves":["Fake Out","Double Hit","Acrobatics","Knock Off"]}},
-				"Anorith":{
-					"Roxanne":{
-						"level": 14,
-						"ability":"Battle Armor",
-						"item":"Silver Powder",
-						"moves":["Rock Tomb","Bug Bite","Aqua Jet","Sandstorm"]}},
-				"Archen":{
-					"Roxanne":{
-						"level": 14,
-						"ability":"Defeatist",
-						"item":"Sharp Beak",
-						"moves":["Rock Tomb","Wing Attack","Double Team","Quick Attack"]}},
-				"Aurorus":{
-					"Glacia":{
-						"level": 72,
-						"ability":"Snow Warning",
-						"item":"Icy Rock",
-						"moves":["Blizzard","Earth Power","Freeze-Dry","Thunderbolt"]}},
-				"Azumarill":{
-					"Wally 2 (Victory Road)":{
-						"level": 70,
-						"ability":"Huge Power",
-						"item":"Assault Vest",
-						"moves":["Aqua Tail","Play Rough","Superpower","Knock Off"]}},
-				"Barbaracle":{
-					"Matt 1 (Southern Island) Double Battle":{
-						"level": 42,
-						"ability":"Tough Claws",
-						"item":"Muscle Band",
-						"moves":["Razor Shell","Stone Edge","Low Kick","X-Scissor"]},
-					"Matt 2 (Mt. Pyre)":{
-						"level": 53,
-						"ability":"Tough Claws",
-						"item":"White Herb",
-						"moves":["Razor Shell","Stone Edge","Super Power","X-Scissor"]},
-					"Matt 3 (Aqua Hideout)":{
-						"level": 55,
-						"ability":"Tough Claws",
-						"item":"Rindo Berry",
-						"moves":["Razor Shell","Stone Edge","Cross Chop","X-Scissor"]}},
+var SETDEX_XY = {"Absol-Mega":{"Sidney":{"level": 72,"ability":"Magic Bounce","item":"Absolite","moves":["Sucker Punch","Play Rough","Fire Blast","Iron Tail"]}},"Aerodactyl":{	"Steven":{"level": 77,"ability":"Rock Head","item":"Life Orb","moves":["Stone Edge","Aqua Tail","Earthquake","Brave Bird"]}},"Aggron":{"Steven":{"level": 77,"ability":"Rock Head","item":"Focus Sash","moves":["Head Smash","Heavy Slam","Earthquake","Thunder Wave"]}},"Altaria-Mega":{"Winona":{"level": 50,"ability":"Pixilate","item":"Altarianite","moves":["Dragon Dance","Body Slam","Earthquake","Roost"]}},"Ambipom":{"Norman":{"level": 40,"ability":"Technician","item":"Normal Gem","moves":["Fake Out","Double Hit","Acrobatics","Knock Off"]}},"Anorith":{"Roxanne":{"level": 14,"ability":"Battle Armor","item":"Silver Powder","moves":["Rock Tomb","Bug Bite","Aqua Jet","Sandstorm"]}},"Archen":{"Roxanne":{"level": 14,"ability":"Defeatist","item":"Sharp Beak","moves":["Rock Tomb","Wing Attack","Double Team","Quick Attack"]}},"Aurorus":{"Glacia":{"level": 72,"ability":"Snow Warning","item":"Icy Rock","moves":["Blizzard","Earth Power","Freeze-Dry","Thunderbolt"]}},"Azumarill":{"Wally 2 (Victory Road)":{"level": 70,"ability":"Huge Power","item":"Assault Vest","moves":["Aqua Tail","Play Rough","Superpower","Knock Off"]}},"Barbaracle":{"Matt 1 (Southern Island) Double Battle":{"level": 42,"ability":"Tough Claws","item":"Muscle Band","moves":["Razor Shell","Stone Edge","Low Kick","X-Scissor"]},"Matt 2 (Mt. Pyre)":{"level": 53,"ability":"Tough Claws","item":"White Herb","moves":["Razor Shell","Stone Edge","Super Power","X-Scissor"]},"Matt 3 (Aqua Hideout)":{"level": 55,"ability":"Tough Claws","item":"Rindo Berry","moves":["Razor Shell","Stone Edge","Cross Chop","X-Scissor"]}},
 				"Bisharp":{
 					"Sidney":{
 						"level": 70,
@@ -1069,5 +1000,4 @@ var SETDEX_XY = {
 						"level": 46,
 						"ability":"Levitate",
 						"item":"Expert Belt",
-						"moves":["Sludge Bomb","Flamethrower","Thunderbolt","Toxic Spikes"]}}
-};
+						"moves":["Sludge Bomb","Flamethrower","Thunderbolt","Toxic Spikes"]}}};

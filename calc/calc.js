@@ -17,6 +17,7 @@ var MECHANICS = [
     gen56_1.calculateBWXY,
     gen78_1.calculateSMSS,
     gen78_1.calculateSMSS,
+    gen78_1.calculateSMSS,
 ];
 function calculate(gen, attacker, defender, move, field) {
     return MECHANICS[gen.num](gen, attacker.clone(), defender.clone(), move.clone(), field ? field.clone() : new field_1.Field());

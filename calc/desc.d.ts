@@ -17,6 +17,8 @@ export interface RawDesc {
     defenseEVs?: string;
     hits?: number;
     isAuroraVeil?: boolean;
+    isFlowerGiftAttacker?: boolean;
+    isFlowerGiftDefender?: boolean;
     isFriendGuard?: boolean;
     isHelpingHand?: boolean;
     isCritical?: boolean;

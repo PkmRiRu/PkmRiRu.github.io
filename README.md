@@ -1,1 +1,1 @@
-pkmnRiRu.github.io
+pkmnRiRu.github.io/?gen=6

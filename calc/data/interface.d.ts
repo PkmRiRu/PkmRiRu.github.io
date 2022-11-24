@@ -1,28 +1,28 @@
 export interface As<T> {
     __brand: T;
 }
-export declare type ID = (string & As<'ID'>) | (string & {
+export type ID = (string & As<'ID'>) | (string & {
     __isID: true;
 }) | '';
-export declare type GenerationNum = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export declare type GenderName = 'M' | 'F' | 'N';
-export declare type StatID = 'hp' | StatIDExceptHP;
-export declare type StatIDExceptHP = 'atk' | 'def' | 'spa' | 'spd' | 'spe';
-export declare type StatsTable<T = number> = {
+export type GenerationNum = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type GenderName = 'M' | 'F' | 'N';
+export type StatID = 'hp' | StatIDExceptHP;
+export type StatIDExceptHP = 'atk' | 'def' | 'spa' | 'spd' | 'spe';
+export type StatsTable<T = number> = {
     [stat in StatID]: T;
 };
-export declare type AbilityName = string & As<'AbilityName'>;
-export declare type ItemName = string & As<'ItemName'>;
-export declare type MoveName = string & As<'MoveName'>;
-export declare type SpeciesName = string & As<'SpeciesName'>;
-export declare type StatusName = 'slp' | 'psn' | 'brn' | 'frz' | 'par' | 'tox';
-export declare type GameType = 'Singles' | 'Doubles';
-export declare type Terrain = 'Electric' | 'Grassy' | 'Psychic' | 'Misty';
-export declare type Weather = 'Sand' | 'Sun' | 'Rain' | 'Hail' | 'Harsh Sunshine' | 'Heavy Rain' | 'Strong Winds';
-export declare type NatureName = 'Adamant' | 'Bashful' | 'Bold' | 'Brave' | 'Calm' | 'Careful' | 'Docile' | 'Gentle' | 'Hardy' | 'Hasty' | 'Impish' | 'Jolly' | 'Lax' | 'Lonely' | 'Mild' | 'Modest' | 'Naive' | 'Naughty' | 'Quiet' | 'Quirky' | 'Rash' | 'Relaxed' | 'Sassy' | 'Serious' | 'Timid';
-export declare type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' | 'Dark' | 'Fairy' | '???';
-export declare type MoveCategory = 'Physical' | 'Special' | 'Status';
-export declare type MoveTarget = 'adjacentAlly' | 'adjacentAllyOrSelf' | 'adjacentFoe' | 'all' | 'allAdjacent' | 'allAdjacentFoes' | 'allies' | 'allySide' | 'allyTeam' | 'any' | 'foeSide' | 'normal' | 'randomNormal' | 'scripted' | 'self';
+export type AbilityName = string & As<'AbilityName'>;
+export type ItemName = string & As<'ItemName'>;
+export type MoveName = string & As<'MoveName'>;
+export type SpeciesName = string & As<'SpeciesName'>;
+export type StatusName = 'slp' | 'psn' | 'brn' | 'frz' | 'par' | 'tox';
+export type GameType = 'Singles' | 'Doubles';
+export type Terrain = 'Electric' | 'Grassy' | 'Psychic' | 'Misty';
+export type Weather = 'Sand' | 'Sun' | 'Rain' | 'Hail' | 'Harsh Sunshine' | 'Heavy Rain' | 'Strong Winds';
+export type NatureName = 'Adamant' | 'Bashful' | 'Bold' | 'Brave' | 'Calm' | 'Careful' | 'Docile' | 'Gentle' | 'Hardy' | 'Hasty' | 'Impish' | 'Jolly' | 'Lax' | 'Lonely' | 'Mild' | 'Modest' | 'Naive' | 'Naughty' | 'Quiet' | 'Quirky' | 'Rash' | 'Relaxed' | 'Sassy' | 'Serious' | 'Timid';
+export type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' | 'Dark' | 'Fairy' | '???';
+export type MoveCategory = 'Physical' | 'Special' | 'Status';
+export type MoveTarget = 'adjacentAlly' | 'adjacentAllyOrSelf' | 'adjacentFoe' | 'all' | 'allAdjacent' | 'allAdjacentFoes' | 'allies' | 'allySide' | 'allyTeam' | 'any' | 'foeSide' | 'normal' | 'randomNormal' | 'scripted' | 'self';
 export interface Generations {
     get(gen: GenerationNum): Generation;
 }
@@ -35,7 +35,7 @@ export interface Generation {
     readonly types: Types;
     readonly natures: Natures;
 }
-export declare type DataKind = 'Ability' | 'Item' | 'Move' | 'Species' | 'Type' | 'Nature';
+export type DataKind = 'Ability' | 'Item' | 'Move' | 'Species' | 'Type' | 'Nature';
 export interface Data<NameT> {
     readonly id: ID;
     readonly name: NameT;
@@ -72,6 +72,7 @@ export interface MoveFlags {
     punch?: 1 | 0;
     bullet?: 1 | 0;
     pulse?: 1 | 0;
+    slicing?: 1 | 0;
 }
 export interface SelfOrSecondaryEffect {
     boosts?: Partial<StatsTable>;
@@ -129,7 +130,7 @@ export interface Types {
     get(id: ID): Type | undefined;
     [Symbol.iterator](): IterableIterator<Type>;
 }
-export declare type TypeEffectiveness = 0 | 0.5 | 1 | 2;
+export type TypeEffectiveness = 0 | 0.5 | 1 | 2;
 export interface Type extends Data<TypeName> {
     readonly kind: 'Type';
     readonly effectiveness: Readonly<{

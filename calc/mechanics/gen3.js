@@ -113,6 +113,11 @@ function calculateADV(gen, attacker, defender, move, field) {
                 desc.moveBP = bp;
             }
             break;
+        case 'Nature Power':
+            move.category = 'Physical';
+            bp = 60;
+            desc.moveName = 'Swift';
+            break;
         default:
             bp = move.bp;
     }
