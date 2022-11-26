@@ -178,7 +178,7 @@ var SETDEX_XY = {"Absol-Mega":{
 						"ability":"Blaze",
 						"item":"Sitrus Berry",
 						"moves":["Fire Blast","Air Slash","Dragon Pulse","Focus Blast"]}},
-				"Charizard-Mega":{
+				"Charizard-Mega-Y":{
 					"Courtney 3 (Magma Hideout)":{
 						"level": 57,
 						"ability":"Drought",
