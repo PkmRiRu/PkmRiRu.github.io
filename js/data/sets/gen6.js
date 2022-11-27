@@ -206,12 +206,12 @@ var SETDEX_XY = {"Absol-Mega":{
 						"level": 63,
 						"ability":"Infiltrator",
 						"item":"Heat Rock",
-						"moves":["Brave Bird","U-Turn","Hypnosis","Sunny Day"]},
+						"moves":["Brave Bird","U-turn","Hypnosis","Sunny Day"]},
 					"Archie 2 (Seafloor Cavern)":{
 						"level": 63,
 						"ability":"Infiltrator",
 						"item":"Damp Rock",
-						"moves":["Brave Bird","U-Turn","Hypnosis","Rain Dance"]}},
+						"moves":["Brave Bird","U-turn","Hypnosis","Rain Dance"]}},
 				"Darmanitan":{
 					"Tabitha 1 (Meteor Falls) Double Battle":{
 						"level": 35,
@@ -316,7 +316,7 @@ var SETDEX_XY = {"Absol-Mega":{
 						"level": 73,
 						"ability":"Levitate",
 						"item":"Choice Scarf",
-						"moves":["Outrage","Earthquake","U-Turn","Iron Tail"]}},
+						"moves":["Outrage","Earthquake","U-turn","Iron Tail"]}},
 				"Froslass":{
 					"Glacia":{
 						"level": 72,
@@ -924,7 +924,7 @@ var SETDEX_XY = {"Absol-Mega":{
 						"level": 40,
 						"ability":"Intimidate",
 						"item":"Power Herb",
-						"moves":["Retaliate","Close Combat","U-Turn","Sky Attack"]}},
+						"moves":["Retaliate","Close Combat","U-turn","Sky Attack"]}},
 				"Starmie":{
 					"Wallace":{
 						"level": 65,
