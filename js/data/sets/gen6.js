@@ -1,5 +1,3 @@
-
-/* AUTOMATICALLY GENERATED FROM @smogon/sets, DO NOT EDIT! */
 var SETDEX_XY = {"Absol-Mega":{
 					"Sidney":{
 						"level": 72,
